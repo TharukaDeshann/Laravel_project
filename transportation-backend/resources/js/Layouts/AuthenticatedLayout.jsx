@@ -2,12 +2,11 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function AuthenticatedLayout({ header, children }) {
-    const user = usePage().props.auth.user;
-
+export default function AuthenticatedLayout({user ,header, children }) {
+    console.log('AuthenticatedLayout user:', user);
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
@@ -30,6 +29,21 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href={route('vehicle.index')}
+                                    active={route().current('vehicle.index')}
+                                >
+                                    All Vehicles
+                                </NavLink>
+
+                                <NavLink
+                                    href={route('user.index')}
+                                    active={route().current('user.index')}
+                                >
+                                    Users
+                                </NavLink>
+                                
+                                
                             </div>
                         </div>
 
@@ -38,6 +52,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
+                                   
+                                   
                                             <button
                                                 type="button"
                                                 className="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-300"
