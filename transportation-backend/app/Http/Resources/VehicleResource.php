@@ -21,7 +21,7 @@ class VehicleResource extends JsonResource
             'capacity' => $this->capacity,
             'description' => $this->description,
             'image_path' => $this->image_path,
-            'assigned_owner_id' => new UserResource($this->owner),
+            'owner' => new UserResource($this->owner),
             'createdBy' => new UserResource($this->createdBy),
             'updatedBy' => new UserResource($this->updatedBy),
         ];

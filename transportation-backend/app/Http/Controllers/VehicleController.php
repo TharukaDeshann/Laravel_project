@@ -16,6 +16,8 @@ class VehicleController extends Controller
     {
         $query = Vehicle::query();
 
+        // $vehicles = Vehicle::with(['owner', 'createdBy', 'updatedBy'])->get();
+
 
         $vehicles = $query->paginate(10)->onEachSide(1);
 
