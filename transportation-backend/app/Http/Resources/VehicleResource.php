@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class VehicleResource extends JsonResource
 {
@@ -20,8 +21,9 @@ class VehicleResource extends JsonResource
             'type'=> $this->type,
             'capacity' => $this->capacity,
             'description' => $this->description,
-            'image_path' => $this->image_path,
-            'owner' => new UserResource($this->owner),
+            'image_path' => $this->image_path ? 
+            Storage::url($this->image_path) : '',
+            'license_plate' => $this->license_plate,
             'createdBy' => new UserResource($this->createdBy),
             'updatedBy' => new UserResource($this->updatedBy),
         ];

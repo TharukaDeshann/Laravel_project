@@ -11,12 +11,10 @@ class Vehicle extends Model
     use HasFactory;
  
     protected $fillable = ['image_path', 'model', 'license_plate', 'type' ,
-    'capacity' , 'description', 'assigned_owner_id', 'created_by', 'updated_by'];
+    'capacity' , 'description', 'created_by', 'updated_by'];
 
 
-    public function owner() {
-        return $this->belongsTo(User::class, 'assigned_owner_id'); 
-    }
+    
 
     public function createdBy(){
         return $this->belongsTo(User::class,'created_by');

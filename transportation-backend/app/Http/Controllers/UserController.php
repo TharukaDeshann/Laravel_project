@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -13,7 +14,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $query = Vehicle::query();
+
+        // $vehicles = Vehicle::with(['owner', 'createdBy', 'updatedBy'])->get();
+
+
+        $vehicles = $query->paginate(10)->onEachSide(1);
+
+        return inertia("Vehicle/Index", [
+            "vehicles" => VehicleResource::collection($vehicles),
+            'queryParams' => request()->query() ?: null,
+            'success' =>  session('success'),
+        ] );
     }
 
     /**
@@ -21,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return inertia("User/Create");
     }
 
     /**
@@ -45,7 +57,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return inertia('User/Edit' , [
+            'user' => new UserResource($user),
+        ]);
     }
 
     /**
@@ -53,7 +67,10 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $data = $request->validated();
+        $user->update($data);
+        return to_route('user.index')
+        ->with('success',"User \"$user->name\" was updated");
     }
 
     /**

@@ -22,7 +22,7 @@ export default function Create({auth}){
     const onSubmit = (e) => {
         e.preventDefault();
     
-        post(route("vehicle.store"));
+        post(route("user.store"));
       };
 
     return (
@@ -31,14 +31,14 @@ export default function Create({auth}){
         header={
           <div className="flex justify-between items-center">
             <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-              Create new Vehicle
+              Create new User
             </h2>
            
             </div>
             
         }
         >
-             <Head title="Vehicles" />
+             <Head title="Users" />
 
 <div className="py-12">
     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -48,74 +48,59 @@ export default function Create({auth}){
               className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 
                 <div>
-                    <InputLabel htmlFor="vehicle_image_path" value="Vehicle Image"/>
+                    <InputLabel htmlFor="user_id" value="User Id"/>
                     <TextInput
                     
-                    id="vehicle_image_path"
-                    type="file"
-                    name="image"
+                    id="user_id"
+                    type="text"
+                    name="id"
                     className="mt-1 block w-full"
-                    onChange={ (e) => setData('image', e.target.files[0])}
+                    onChange={ (e) => setData('id', e.target.value)}
                      />
-                     <InputError message={errors.image} className="mt-2"/>
+                     <InputError message={errors.id} className="mt-2"/>
                 </div>
                 <div className="mt-4">
-                <InputLabel htmlFor="vehicle_model" value="Vehicle Model" />
+                <InputLabel htmlFor="user_name" value="User Name" />
 
                 <TextInput
-                  id="vehicle_model"
+                  id="user_name"
                   type="text"
-                  name="model"
-                  value={data.model}
+                  name="name"
+                  value={data.name}
                   className="mt-1 block w-full"
                   isFocused={true}
-                  onChange={(e) => setData("model", e.target.value)}
+                  onChange={(e) => setData("name", e.target.value)}
                 />
 
-                <InputError message={errors.model} className="mt-2" />
+                <InputError message={errors.name} className="mt-2" />
               </div>
               
-              <div className="mt-4">
-                <InputLabel
-                  htmlFor="vehicle_description"
-                  value="Vehicle Description"
-                />
-
-                <TextAreaInput
-                  id="vehicle_description"
-                  name="description"
-                  value={data.description}
-                  className="mt-1 block w-full"
-                  onChange={(e) => setData("description", e.target.value)}
-                />
-
-                <InputError message={errors.description} className="mt-2" />
-              </div>
+             
 
               <div className="mt-4">
                 <InputLabel
-                  htmlFor="vehicle_license_plate"
-                  value="Vehicle License Plate"
+                  htmlFor="user_email"
+                  value="User  E mail"
                 />
 
                 <TextInput
-                  id="vehicle_license_plate"
+                  id="user_email"
                   type="text"
-                  name="license_plate"
-                  value={data.license_plate}
+                  name="email"
+                  value={data.email}
                   className="mt-1 block w-full"
-                  onChange={(e) => setData("license_plate", e.target.value)}
+                  onChange={(e) => setData("email", e.target.value)}
                 />
 
-                <InputError message={errors.license_plate} className="mt-2" />
+                <InputError message={errors.email} className="mt-2" />
               </div>
 
               <div className="mt-4">
-                <InputLabel htmlFor="vehicle_type" value="Vehicle Type" />
+                <InputLabel htmlFor="user_type" value="User Type" />
 
                 <SelectInput
                   name="type"
-                  id="vehicle_type"
+                  id="user_type"
                   className="mt-1 block w-full"
                   onChange={(e) => setData("type", e.target.value)}
                 >
@@ -128,17 +113,17 @@ export default function Create({auth}){
 
                 </SelectInput>
 
-                <InputError message={errors.vehicle_type} className="mt-2" />
+                <InputError message={errors.user_type} className="mt-2" />
               </div>
 
               <div className="mt-4">
                 <InputLabel
-                  htmlFor="vehicle_capacity"
-                  value="Vehicle Capacity"
+                  htmlFor="user_capacity"
+                  value="User Capacity"
                 />
 
                 <TextInput
-                  id="vehicle_capacity"
+                  id="user_capacity"
                   type="number"
                   min={1}
                   max={50}
@@ -152,7 +137,7 @@ export default function Create({auth}){
               </div>
               <div className="mt-4 text-right">
                 <Link
-                  href={route("vehicle.index")}
+                  href={route("user.index")}
                   className="bg-gray-100 py-1 px-3 text-gray-800 rounded shadow transition-all hover:bg-gray-200 mr-2"
                 >
                   Cancel
