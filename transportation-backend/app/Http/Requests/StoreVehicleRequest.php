@@ -11,7 +11,7 @@ class StoreVehicleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class StoreVehicleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-        ];
+            'image' => ['nullable', 'image'],
+            "model" => [ 'required','string', 'max:255'], // Ensure the model is a required string with a max length of 255 characters.
+            "description" => ['nullable', 'string'], // Optional long text field, can be null.
+            "license_plate" => ['required', 'max:255'], // Required, unique across vehicles.
+            "type" => ['required', 'string'], // Required, must be one of the predefined types.
+            "capacity" => ['required', 'integer', 'min:1', 'max:50']        ];
     }
 }

@@ -9,7 +9,9 @@ class Vehicle extends Model
 {
     /** @use HasFactory<\Database\Factories\VehicleFactory> */
     use HasFactory;
-
+ 
+    protected $fillable = ['image_path', 'model', 'license_plate', 'type' ,
+    'capacity' , 'description', 'assigned_owner_id', 'created_by', 'updated_by'];
 
 
     public function owner() {

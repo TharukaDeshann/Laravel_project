@@ -31,7 +31,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        //
+        return inertia("Vehicle/Create");
     }
 
     /**
@@ -39,7 +39,12 @@ class VehicleController extends Controller
      */
     public function store(StoreVehicleRequest $request)
     {
-        //
+        $data = $request->validated();
+        Vehicle::create($data);
+
+        return to_route(route('vehicle.index'));
+
+        
     }
 
     /**
