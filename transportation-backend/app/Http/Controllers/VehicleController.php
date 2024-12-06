@@ -40,7 +40,11 @@ class VehicleController extends Controller
     public function store(StoreVehicleRequest $request)
     {
         $data = $request->validated();
-        dd($data);
+        Vehicle::create($data);
+
+        return to_route(route('vehicle.index'));
+
+        
     }
 
     /**

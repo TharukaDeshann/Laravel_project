@@ -22,12 +22,11 @@ class StoreVehicleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "image" => ['nullable', 'image'],
-            "model" => ['required', 'string', 'max:255'], // Ensure the model is a required string with a max length of 255 characters.
+            'image' => ['nullable', 'image'],
+            "model" => [ 'required','string', 'max:255'], // Ensure the model is a required string with a max length of 255 characters.
             "description" => ['nullable', 'string'], // Optional long text field, can be null.
-            "license_plate" => ['required', 'string', 'max:255'], // Required, unique across vehicles.
-            "type" => ['required', 'string', 'in:sedan,suv,truck,van,bike,other'], // Required, must be one of the predefined types.
-            "capacity" => ['required', 'integer', 'min:1', 'max:50'],
-        ];
+            "license_plate" => ['required', 'max:255'], // Required, unique across vehicles.
+            "type" => ['required', 'string'], // Required, must be one of the predefined types.
+            "capacity" => ['required', 'integer', 'min:1', 'max:50']        ];
     }
 }

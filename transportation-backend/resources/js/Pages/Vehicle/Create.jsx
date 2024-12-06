@@ -9,12 +9,12 @@ import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Create({auth}){
     const {data, setData, post, errors, reset} = useForm({
-        image: '',
-        model: '',
-        description: '',
-        license_plate: '',
-        type: '',
-        capacity: '',
+        image: "",
+        model: "",
+        description: "",
+        license_plate: "",
+        type: "",
+        capacity: "",
         
 
     })
@@ -44,7 +44,7 @@ export default function Create({auth}){
     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
           
-                <form onSubmit={onSubmit}
+              <form onSubmit={onSubmit}
               className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 
                 <div>
@@ -55,8 +55,7 @@ export default function Create({auth}){
                     type="file"
                     name="image"
                     className="mt-1 block w-full"
-                    isFocused = {true}
-                    onChange={e => setData('image', e.target.files[0])}
+                    onChange={ (e) => setData('image', e.target.files[0])}
                      />
                      <InputError message={errors.image} className="mt-2"/>
                 </div>
@@ -118,7 +117,7 @@ export default function Create({auth}){
                   name="type"
                   id="vehicle_type"
                   className="mt-1 block w-full"
-                  onChange={(e) => setData("vehicle_type", e.target.value)}
+                  onChange={(e) => setData("type", e.target.value)}
                 >
                   <option value="">Select Type</option>
                   <option value="Sedan">Sedan</option>
@@ -140,14 +139,16 @@ export default function Create({auth}){
 
                 <TextInput
                   id="vehicle_capacity"
-                  type="text"
-                  name="vehicle_capacity"
+                  type="number"
+                  min={1}
+                  max={50}
+                  name="capacity"
                   value={data.vehicle_capacity}
                   className="mt-1 block w-full"
-                  onChange={(e) => setData("vehicle_capacity", e.target.value)}
+                  onChange={(e) => setData("capacity", e.target.value)}
                 />
 
-                <InputError message={errors.vehicle_capacity} className="mt-2" />
+                <InputError message={errors.capacity} className="mt-2" />
               </div>
               <div className="mt-4 text-right">
                 <Link
@@ -167,5 +168,5 @@ export default function Create({auth}){
             </div>
            
         </AuthenticatedLayout>
-    )
+    );
 }
