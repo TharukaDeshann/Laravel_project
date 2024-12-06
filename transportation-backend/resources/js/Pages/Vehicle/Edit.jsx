@@ -7,22 +7,23 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 
-export default function Create({auth}){
-    const {data, setData, post, errors, reset} = useForm({
-        image: "",
-        model: "",
-        description: "",
-        license_plate: "",
-        type: "",
-        capacity: "",
-        
-
-    })
+export default function Create({auth, vehicle}){
+    console.log(vehicle);
+    const { data, setData, post, errors, reset } = useForm({
+      image: "",
+      model: vehicle?.model || "",
+      description: vehicle?.description || "",
+      license_plate: vehicle?.license_plate || "",
+      type: vehicle?.type || "",
+      capacity: vehicle?.capacity || "",
+      _method: 'PUT'
+  });
+    
 
     const onSubmit = (e) => {
         e.preventDefault();
     
-        post(route("vehicle.store"));
+        post(route("vehicle.update", vehicle.id));
       };
 
     return (
@@ -31,7 +32,7 @@ export default function Create({auth}){
         header={
           <div className="flex justify-between items-center">
             <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-              Create new Vehicle
+              Edit vehicle "{vehicle?.model || "Unknown"}"
             </h2>
            
             </div>
@@ -46,7 +47,17 @@ export default function Create({auth}){
           
               <form onSubmit={onSubmit}
               className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+               
+               
+               
                 
+
+
+
+
+                {vehicle.image_path && <div className="mb-4">
+                    <img src={vehicle.image_path} className="w-64"/>
+                </div>}
                 <div>
                     <InputLabel htmlFor="vehicle_image_path" value="Vehicle Image"/>
                     <TextInput
@@ -98,16 +109,15 @@ export default function Create({auth}){
                   value="Vehicle License Plate"
                 />
 
-                <TextInput
+              <TextInput
                   id="vehicle_license_plate"
                   type="text"
                   name="license_plate"
-                  value={data.license_plate}
+                  value={data.license_plate} // Correct reference
                   className="mt-1 block w-full"
-                  onChange={(e) => setData("license_plate", e.target.value)}
-                />
-
-                <InputError message={errors.license_plate} className="mt-2" />
+                  onChange={(e) => setData("license_plate", e.target.value)} // Correct onChange
+              />
+              <InputError message={errors.license_plate} className="mt-2" />
               </div>
 
               <div className="mt-4">
@@ -128,7 +138,7 @@ export default function Create({auth}){
 
                 </SelectInput>
 
-                <InputError message={errors.vehicle_type} className="mt-2" />
+                <InputError message={errors.type} className="mt-2" />
               </div>
 
               <div className="mt-4">
