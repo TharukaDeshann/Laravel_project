@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreVehicleRequest extends FormRequest
 {
@@ -24,6 +25,7 @@ class StoreVehicleRequest extends FormRequest
         return [
             'image' => ['nullable', 'image'],
             "model" => [ 'required','string', 'max:255'], // Ensure the model is a required string with a max length of 255 characters.
+            "status" => [ 'required', Rule::in('Active' , 'Inactive')],
             "description" => ['nullable', 'string'], // Optional long text field, can be null.
             "license_plate" => ['required', 'max:255'], // Required, unique across vehicles.
             "type" => ['required', 'string'], // Required, must be one of the predefined types.

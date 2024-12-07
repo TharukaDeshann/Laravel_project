@@ -11,6 +11,7 @@ export default function Create({auth}){
     const {data, setData, post, errors, reset} = useForm({
         image: "",
         model: "",
+        status: "",
         description: "",
         license_plate: "",
         type: "",
@@ -109,6 +110,23 @@ export default function Create({auth}){
 
                 <InputError message={errors.license_plate} className="mt-2" />
               </div>
+              <div className="mt-4">
+                <InputLabel htmlFor="vehicle_status" value="Vehicle Status" />
+
+                <SelectInput
+                  name="status"
+                  id="vehicle_status"
+                  className="mt-1 block w-full"
+                  onChange={(e) => setData("status", e.target.value)}
+                >
+                  <option value="">Select Status</option>
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+
+                </SelectInput>
+
+                <InputError message={errors.status} className="mt-2" />
+              </div>
 
               <div className="mt-4">
                 <InputLabel htmlFor="vehicle_type" value="Vehicle Type" />
@@ -128,7 +146,7 @@ export default function Create({auth}){
 
                 </SelectInput>
 
-                <InputError message={errors.vehicle_type} className="mt-2" />
+                <InputError message={errors.type} className="mt-2" />
               </div>
 
               <div className="mt-4">

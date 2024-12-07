@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateVehicleRequest extends FormRequest
 {
@@ -24,6 +25,7 @@ class UpdateVehicleRequest extends FormRequest
         return [
             'image' => ['nullable', 'image'],
             "model" => [ 'required','string', 'max:255'],
+            "status" => [ 'required', Rule::in('Active' , 'Inactive')],
             "description" => ['nullable', 'string'], 
             "license_plate" => ['required', 'max:255'], 
             "type" => ['required', 'string'], 

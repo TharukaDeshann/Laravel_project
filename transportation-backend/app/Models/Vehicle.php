@@ -10,7 +10,7 @@ class Vehicle extends Model
     /** @use HasFactory<\Database\Factories\VehicleFactory> */
     use HasFactory;
  
-    protected $fillable = ['image_path', 'model', 'license_plate', 'type' ,
+    protected $fillable = ['image_path', 'model','status', 'license_plate', 'type' ,
     'capacity' , 'description', 'created_by', 'updated_by'];
 
 
