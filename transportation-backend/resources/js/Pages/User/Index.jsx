@@ -1,10 +1,10 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
-export default function Index({ auth, users, queryParams = null, success }) {
+export default function Index({ auth, users,  success }) {
   
    const deleteUser = (user) => {
-    if(!window.confirm("Are you sure you want to delete the project?")){
+    if(!window.confirm("Are you sure you want to delete the user?")){
         return;
     }
     router.delete(route("user.destroy", user.id));
@@ -48,10 +48,10 @@ export default function Index({ auth, users, queryParams = null, success }) {
                 >
                   <tr className="text-nowrap">
                     <th className="px-3 py-3">ID</th>
-                    <th className="px-3 py-3">Name</th>
-                    <th className="px-3 py-3">E mail</th>
-                    <th className="px-3 py-3">Created at</th>
-                    <th className="px-3 py-3 text-right">Actions</th>
+                    <th className="px-3 py-3">NAME</th>
+                    <th className="px-3 py-3">EMAIL</th>
+                    <th className="px-3 py-3">CREATE DATE</th>
+                    <th className="px-3 py-3 text-right">ACTIONS</th>
                   </tr>
                 </thead>
                 <tbody>

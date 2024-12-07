@@ -4,7 +4,7 @@ import Pagination from "@/Components/Pagination";
 export default function Index({ auth, vehicles, queryParams = null, success }) {
   
    const deleteVehicle = (vehicle) => {
-    if(!window.confirm("Are you sure you want to delete the project?")){
+    if(!window.confirm("Are you sure you want to delete the vehicle?")){
         return;
     }
     router.delete(route("vehicle.destroy", vehicle.id));
@@ -48,15 +48,36 @@ export default function Index({ auth, vehicles, queryParams = null, success }) {
                 >
                   <tr className="text-nowrap">
                     <th className="px-3 py-3">ID</th>
-                    <th className="px-3 py-3">Image</th>
-                    <th className="px-3 py-3">Model</th>
-                    <th className="px-3 py-3">Capacity</th>
-                    <th className="px-3 py-3">Type</th>
-                    <th className="px-3 py-3">Created By</th>
-                    <th className="px-3 py-3">Updated BY</th>
-                    <th className="px-3 py-3 text-right">Actions</th>
+                    <th className="px-3 py-3">IMAGE</th>
+                    <th className="px-3 py-3">MODEL</th>
+                    <th className="px-3 py-3">CAPACITY</th>
+                    <th className="px-3 py-3">TYPE</th>
+                    <th className="px-3 py-3">CREATED BY</th>
+                    <th className="px-3 py-3">UPDATED BY</th>
+                    <th className="px-3 py-3 text-right">ACTIONS</th>
                   </tr>
                 </thead>
+
+                <thead
+                  className="text-xs text-gray-700 uppercase bg-gray-50 
+                                dark:bg-gray-700 dark:text-gray-400 
+                                border-b-2 border-gray-500"
+                >
+                  <tr className="text-nowrap">
+                    <th className="px-3 py-3">ID</th>
+                    <th className="px-3 py-3">IMAGE</th>
+                    <th className="px-3 py-3">MODEL</th>
+                    <th className="px-3 py-3">CAPACITY</th>
+                    <th className="px-3 py-3">TYPE</th>
+                    <th className="px-3 py-3">CREATED BY</th>
+                    <th className="px-3 py-3">UPDATED BY</th>
+                    <th className="px-3 py-3 text-right">ACTIONS</th>
+                  </tr>
+                </thead>
+
+
+
+
                 <tbody>
                   {vehicles.data.map((vehicle) => (
                     <tr
