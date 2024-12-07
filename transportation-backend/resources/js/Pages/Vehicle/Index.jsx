@@ -1,7 +1,9 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
-export default function Index({ auth, vehicles, queryParams = null, success }) {
+import TextInput from "@/Components/TextInput";
+import SelectInput from "@/Components/SelectInput";
+export default function Index({ auth, vehicles,queryParams = null, success }) {
   
    const deleteVehicle = (vehicle) => {
     if(!window.confirm("Are you sure you want to delete the vehicle?")){
@@ -9,8 +11,21 @@ export default function Index({ auth, vehicles, queryParams = null, success }) {
     }
     router.delete(route("vehicle.destroy", vehicle.id));
    }
-  
-  
+    queryParams = queryParams || {}
+    const searchFieldChanged = (type, value) => {
+        if(value){
+          queryParams[type] = value
+        }else{
+          delete queryParams[type]
+        }
+
+        router.get(route('vehicle.index'), queryParams);
+    };
+
+    const onKeyPress = (model , e) => {
+      if(e.key !== 'Enter') return;
+      searchFieldChanged(model, e.target.value)
+    }
   
     return (
     <AuthenticatedLayout
@@ -47,14 +62,36 @@ export default function Index({ auth, vehicles, queryParams = null, success }) {
                                 border-b-2 border-gray-500"
                 >
                   <tr className="text-nowrap">
-                    <th className="px-3 py-3">ID</th>
-                    <th className="px-3 py-3">IMAGE</th>
-                    <th className="px-3 py-3">MODEL</th>
-                    <th className="px-3 py-3">CAPACITY</th>
-                    <th className="px-3 py-3">TYPE</th>
-                    <th className="px-3 py-3">CREATED BY</th>
-                    <th className="px-3 py-3">UPDATED BY</th>
-                    <th className="px-3 py-3 text-right">ACTIONS</th>
+                    <th className="px-3 py-3"></th>
+                    <th className="px-3 py-3"></th>
+                    <th className="px-3 py-3">
+                    <TextInput className="w-full"
+                        defaultValue={queryParams.model}
+                        placeholder="Vehicle Model"
+                        onBlur={e => searchFieldChanged('model'
+                          , e.target.value
+                        )}
+                        onKeyPress={e => onKeyPress('model', e)}
+                        />
+                    </th>
+                    <th className="px-3 py-3"></th>
+                    <th className="px-3 py-3"></th>
+                    <th className="px-3 py-3">
+                        <SelectInput className="w-full" 
+                        defaultValue={queryParams.type}
+                        onChange={e => searchFieldChanged("type", e.target.value)}
+                        >
+                          <option value="">Select Type</option>
+                          <option value="Sedan">Sedan</option>
+                          <option value="Suv">Suv</option>
+                          <option value="Truck">Truck</option>
+                          <option value="Bike">Bike</option>
+                          <option value="Other">Other</option>
+                        </SelectInput>
+                    </th>
+                    <th className="px-3 py-3"></th>
+                    <th className="px-3 py-3"></th>
+                    <th className="px-3 py-3"></th>
                   </tr>
                 </thead>
 
@@ -67,6 +104,7 @@ export default function Index({ auth, vehicles, queryParams = null, success }) {
                     <th className="px-3 py-3">ID</th>
                     <th className="px-3 py-3">IMAGE</th>
                     <th className="px-3 py-3">MODEL</th>
+                    <th className="px-3 py-3">STATUS</th>
                     <th className="px-3 py-3">CAPACITY</th>
                     <th className="px-3 py-3">TYPE</th>
                     <th className="px-3 py-3">CREATED BY</th>
@@ -90,6 +128,7 @@ export default function Index({ auth, vehicles, queryParams = null, success }) {
                         <img src={vehicle.image_path} style={{ width: 60 }} />
                       </td>
                       <td className="px-3 py-2 text-nowrap">{vehicle.model}</td>
+                      <td className="px-3 py-2 text-nowrap">{vehicle.status}</td>
                       <td className="px-3 py-2">{vehicle.capacity}</td>
                       <td className="px-3 py-2">{vehicle.type}</td>
 

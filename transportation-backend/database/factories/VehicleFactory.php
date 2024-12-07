@@ -23,6 +23,7 @@ class VehicleFactory extends Factory
             'model' => fake()->sentence,
             'license_plate' => $this->faker->unique()->bothify('??-####'),
             'type' => fake()->randomElement(['Car', 'Truck' , 'Bus', 'Ship' ]),
+            'status' => fake()->randomElement(['Active', 'Inactive']),
             'capacity' => fake()->randomElement([100, 200 , 300 , 450 ]),
             'description' => fake()->realText(),
             'image_path' => fake()->imageUrl(),

@@ -18,16 +18,20 @@ class VehicleController extends Controller
     public function index()
     {
         $query = Vehicle::query();
-
-        // $vehicles = Vehicle::with(['owner', 'createdBy', 'updatedBy'])->get();
-
+        
+        if(request("model")){
+            $query->where("model", "like", "%".request("model")."%");
+        }
+        if(request("type")){
+            $query->where("type", request("type"));
+        }
 
         $vehicles = $query->paginate(10)->onEachSide(1);
 
         return inertia("Vehicle/Index", [
             "vehicles" => VehicleResource::collection($vehicles),
-            'queryParams' => request()->query() ?: null,
             'success' =>  session('success'),
+            'queryParams' => request()->query() ?: null,
         ] );
     }
 
