@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserResource;
+
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserCrudResource;
 
 class UserController extends Controller
 {
@@ -14,16 +15,15 @@ class UserController extends Controller
      */
     public function index()
     {
-        $query = Vehicle::query();
+        $query = User::query();
 
-        // $vehicles = Vehicle::with(['owner', 'createdBy', 'updatedBy'])->get();
+        // $users = User::with(['owner', 'createdBy', 'updatedBy'])->get();
 
 
-        $vehicles = $query->paginate(10)->onEachSide(1);
+        $users = $query->paginate(10)->onEachSide(1);
 
-        return inertia("Vehicle/Index", [
-            "vehicles" => VehicleResource::collection($vehicles),
-            'queryParams' => request()->query() ?: null,
+        return inertia("User/Index", [
+            "users" => UserCrudResource::collection($users),
             'success' =>  session('success'),
         ] );
     }
@@ -41,7 +41,12 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['email_verified_at'] = time();
+
+        $data['password'] = bcrypt($data['password']);
+        User::create($data);
+        return to_route('user.index')->with('success', 'User was created');
     }
 
     /**
@@ -58,7 +63,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return inertia('User/Edit' , [
-            'user' => new UserResource($user),
+            'user' => new UserCrudResource($user),
         ]);
     }
 
@@ -68,7 +73,14 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $data = $request->validated();
+        $password = $data['password']?? null;
+        if($password){
+            $data['password'] = bcrypt($password);
+        }else{
+            unset($data['password']);
+        }
         $user->update($data);
+
         return to_route('user.index')
         ->with('success',"User \"$user->name\" was updated");
     }
@@ -78,6 +90,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $name = $user->name;
+        $user->delete();
+        return to_route('user.index')->with('success' , "User
+         \"$name\" was deleted");
+
     }
 }

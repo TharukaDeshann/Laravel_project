@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('model'); // Name of the vehicle
             $table->string('license_plate')->unique();
             $table->string('type');
+           
             $table->integer('capacity');
             $table->longText('description')->nullable();
             $table->string('image_path')->nullable();
