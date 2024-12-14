@@ -68,7 +68,9 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        //
+        return inertia('Vehicle/Show ' , [
+            'vehicle' => new VehicleResource($vehicle),
+        ]);
     }
 
     /**

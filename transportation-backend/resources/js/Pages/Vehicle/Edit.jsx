@@ -8,7 +8,6 @@ import { Head, Link, useForm } from "@inertiajs/react";
 
 
 export default function Create({auth, vehicle}){
-    console.log(vehicle);
     const { data, setData, post, errors, reset } = useForm({
       image: "",
       model: vehicle?.model || "",

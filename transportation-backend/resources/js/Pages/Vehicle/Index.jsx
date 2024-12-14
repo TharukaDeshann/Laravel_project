@@ -131,7 +131,12 @@ export default function Index({ auth, vehicles,queryParams = null, success }) {
                       <td className="px-3 py-2">
                         <img src={vehicle.image_path} style={{ width: 60 }} />
                       </td>
-                      <td className="px-3 py-2 text-nowrap">{vehicle.model}</td>
+
+                      <th className="px-3 py-2 text-white text-nowrap hover:underline">
+                        <Link href={route("vehicle.show", vehicle.id)}>{vehicle.model}</Link>
+
+
+                      </th>
                       
                       
                       <td className="px-3 py-2">
