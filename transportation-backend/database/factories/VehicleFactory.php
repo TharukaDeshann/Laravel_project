@@ -27,6 +27,7 @@ class VehicleFactory extends Factory
             'capacity' => fake()->randomElement([100, 200 , 300 , 450 ]),
             'description' => fake()->realText(),
             'image_path' => fake()->imageUrl(),
+            'assigned_user_id' => fake()->randomElement([1, 2]),
             'created_by' => 1,
             'updated_by' => 1,
             'created_at' => time(),

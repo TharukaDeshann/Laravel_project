@@ -47,8 +47,4 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function vehicles()
-    {
-        return $this->hasMany(Vehicle::class, 'assigned_owner_id'); // Reference the correct column
-    }
 }

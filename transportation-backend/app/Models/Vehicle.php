@@ -10,8 +10,18 @@ class Vehicle extends Model
     /** @use HasFactory<\Database\Factories\VehicleFactory> */
     use HasFactory;
  
-    protected $fillable = ['image_path', 'model','status', 'license_plate', 'type' ,
-    'capacity' , 'description', 'created_by', 'updated_by'];
+    protected $fillable = [
+        'image_path',
+        'model',
+        'status',
+        'license_plate', 
+        'type' ,
+        'capacity' , 
+        'description',
+        'assigned_user_id', 
+        'created_by', 
+        'updated_by'
+    ];
 
 
     
@@ -22,5 +32,9 @@ class Vehicle extends Model
 
     public function updatedBy(){
         return $this->belongsTo(User::class,'updated_by');
+    }
+
+    public function assignedUser(){
+        return $this->belongsTo(User::class, 'assigned_user_id');
     }
 }

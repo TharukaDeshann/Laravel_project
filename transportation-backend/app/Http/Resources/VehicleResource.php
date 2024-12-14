@@ -25,7 +25,9 @@ class VehicleResource extends JsonResource
             'image_path' => $this->image_path ? 
             Storage::url($this->image_path) : '',
             'license_plate' => $this->license_plate,
-            'createdBy' => new UserResource($this->createdBy),
+            'assignedUser' => $this->assignedUser ? new UserResource
+            (resource: $this->assignedUser) : null,
+            'createdBy' => new UserResource(resource: $this->createdBy),
             'updatedBy' => new UserResource($this->updatedBy),
         ];
     }

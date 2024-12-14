@@ -23,7 +23,7 @@ class StoreVehicleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['nullable', 'image'],
+            "image" => ['nullable', 'image'],
             "model" => [ 'required','string', 'max:255'], // Ensure the model is a required string with a max length of 255 characters.
             "status" => [ 'required', Rule::in('Active' , 'Inactive')],
             "description" => ['nullable', 'string'], // Optional long text field, can be null.
