@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
@@ -29,6 +30,7 @@ class VehicleResource extends JsonResource
             (resource: $this->assignedUser) : null,
             'createdBy' => new UserResource(resource: $this->createdBy),
             'updatedBy' => new UserResource($this->updatedBy),
+            'created_at' => (new Carbon($this->created_at))->format('Y-m-d'),
         ];
     }
 }

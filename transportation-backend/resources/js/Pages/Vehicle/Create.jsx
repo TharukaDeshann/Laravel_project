@@ -7,7 +7,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 
-export default function Create({auth}){
+export default function Create({auth, users}){
     const {data, setData, post, errors, reset} = useForm({
         image: "",
         model: "",
@@ -40,7 +40,6 @@ export default function Create({auth}){
         }
         >
              <Head title="Vehicles" />
-
 <div className="py-12">
     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
@@ -168,6 +167,34 @@ export default function Create({auth}){
 
                 <InputError message={errors.capacity} className="mt-2" />
               </div>
+
+              <div className="mt-4">
+                <InputLabel
+                  htmlFor="vehicle_assigned_user"
+                  value="Assigned User"
+                />
+
+              <SelectInput
+                  name="assigned_user_id"
+                  id="vehicle_assigned_user"
+                  className="mt-1 block w-full"
+                  onChange={(e) => setData("assigned_user_id", e.target.value)}
+                >
+                  <option value="">Select User</option>
+                  {users.map((user) => (
+                    <option value={user.id} key={user.id}>
+                      {user.name}
+                    </option>
+                  ))}
+                </SelectInput>
+
+                <InputError
+                  message={errors.assigned_user_id}
+                  className="mt-2"
+                />
+              </div>
+
+
               <div className="mt-4 text-right">
                 <Link
                   href={route("vehicle.index")}

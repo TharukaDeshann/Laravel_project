@@ -25,6 +25,7 @@ class UpdateVehicleRequest extends FormRequest
         return [
             'image' => ['nullable', 'image'],
             "model" => [ 'required','string', 'max:255'],
+            "assigned_user_id" => ['nullable', 'exists:users,id'],
             "status" => [ 'required', Rule::in('Active' , 'Inactive')],
             "description" => ['nullable', 'string'], 
             "license_plate" => ['required', 'max:255'], 
