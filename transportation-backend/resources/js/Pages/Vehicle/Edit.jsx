@@ -7,7 +7,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 
-export default function Create({auth, vehicle}){
+export default function Create({auth, vehicle, users}){
     const { data, setData, post, errors, reset } = useForm({
       image: "",
       model: vehicle?.model || "",
@@ -15,6 +15,7 @@ export default function Create({auth, vehicle}){
       description: vehicle?.description || "",
       license_plate: vehicle?.license_plate || "",
       type: vehicle?.type || "",
+      assigned_user_id : vehicle?.assigned_user_id || "",
       capacity: vehicle?.capacity || "",
       _method: 'PUT'
   });
@@ -177,6 +178,36 @@ export default function Create({auth, vehicle}){
 
                 <InputError message={errors.capacity} className="mt-2" />
               </div>
+
+
+              <div className="mt-4">
+                <InputLabel
+                  htmlFor="vehicle_assigned_user"
+                  value="Assigned User"
+                />
+
+                <SelectInput
+                  name="assigned_user_id"
+                  id="vehicle_assigned_user"
+                  value={data.assigned_user_id}
+                  className="mt-1 block w-full"
+                  onChange={(e) => setData("assigned_user_id", e.target.value)}
+                >
+                  <option value="">Select User</option>
+                  {users.map((user) => (
+                    <option value={user.id} key={user.id}>
+                      {user.name}
+                    </option>
+                  ))}
+                </SelectInput>
+
+                <InputError
+                  message={errors.assigned_user_id}
+                  className="mt-2"
+                />
+              </div>
+
+
               <div className="mt-4 text-right">
                 <Link
                   href={route("vehicle.index")}

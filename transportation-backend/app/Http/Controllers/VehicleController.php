@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Vehicle;
 use App\Http\Requests\StoreVehicleRequest;
 use App\Http\Requests\UpdateVehicleRequest;
+use App\Http\Resources\UserResource;
 use App\Http\Resources\VehicleResource;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -40,7 +42,10 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return inertia("Vehicle/Create");
+        $users = User::all();
+        return inertia("Vehicle/Create", [
+            'users' => UserResource::collection($users),
+        ]);
     }
 
     /**
@@ -68,7 +73,7 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        return inertia('Vehicle/Show ' , [
+        return inertia('Vehicle/Show' , [
             'vehicle' => new VehicleResource($vehicle),
         ]);
     }
@@ -78,7 +83,9 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
+        $users = User::all();
         return inertia('Vehicle/Edit' , [
+            'users' => UserResource::collection($users),
             'vehicle' => new VehicleResource($vehicle),
         ]);
     }
