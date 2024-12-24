@@ -5,8 +5,10 @@ import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 
 export default function Edit({ auth ,mustVerifyEmail, status }) {
+    const { user } = auth;
     return (
         <AuthenticatedLayout
+        user = {user}
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
                     Profile

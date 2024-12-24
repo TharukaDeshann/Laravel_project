@@ -10,7 +10,7 @@ export default function Create({auth}){
         name: "",
         email: "",
         password: "",
-        password_confirmation: "",  
+        password_confirmation: "", 
     })
 
     const onSubmit = (e) => {
@@ -114,6 +114,7 @@ export default function Create({auth}){
                 <InputError message={errors.password_confirmation} className="mt-2" />
               
               </div>
+              
               <div className="mt-4 text-right">
                 <Link
                   href={route("user.index")}

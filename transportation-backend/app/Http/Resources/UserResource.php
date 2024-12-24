@@ -20,6 +20,13 @@ class UserResource extends JsonResource
             "name" => $this->name,
             "email"=> $this->email,
             "created_at" => (new Carbon($this->created_at))->format("Y-m-d"),
+            "role" => $this->role,
+            "permissions" => $this->getAllPermissions()
+            ->map(function ($permission) {
+                return $permission->name;
+            }),
+            'roles' => $this->getRoleNames()
+
         ];
     }
 }

@@ -13,6 +13,7 @@ export default function Show({ auth, vehicle }) {
           }
         >
         <Head title={`Vehicle "${vehicle.model}"`} />
+
         <div className="py-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
@@ -70,8 +71,8 @@ export default function Show({ auth, vehicle }) {
                     <p className="mt-1">{vehicle.created_at}</p>
                   </div>
                   <div className="mt-4">
-                    <label className="font-bold text-lg">Updated By</label>
-                    <p className="mt-1">{vehicle.updatedBy.name}</p>
+                    <label className="font-bold text-lg">Assigned user</label>
+                    <p className="mt-1  text-white text-nowrap hover:underline"><Link href={route("user.show", vehicle?.assignedUser?.id ?? "1")}>{vehicle?.assignedUser?.name ?? "Unknown"}</Link></p>
                   </div>
 
                     </div>

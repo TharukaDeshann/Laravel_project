@@ -9,6 +9,11 @@ import {
  } from "@/constants.jsx";
 export default function Index({ auth, vehicles,queryParams = null, success }) {
   
+   const userPermissions = auth?.user?.permissions || [];
+   const hasPermissions = (permission) => {
+    return userPermissions.includes(permission);
+   };
+
    const deleteVehicle = (vehicle) => {
     if(!window.confirm("Are you sure you want to delete the vehicle?")){
         return;
@@ -39,17 +44,19 @@ export default function Index({ auth, vehicles,queryParams = null, success }) {
           <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             Vehicles
           </h2>
-          <Link
+          {hasPermissions('manage_vehicles') && (
+            <Link
             href={route("vehicle.create")}
             className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600"
           >
             Add new
           </Link>
+          )}
         </div>
       }
     >
-      <Head title="Vehicles" />
       
+      <Head title="Vehicles" />
       <div className="py-12">
         {success && (
           <div className="bg-emerald-500 py-2 px-4 text-white mb-4 rounded">
@@ -96,6 +103,10 @@ export default function Index({ auth, vehicles,queryParams = null, success }) {
                     <th className="px-3 py-3"></th>
                     <th className="px-3 py-3"></th>
                     <th className="px-3 py-3"></th>
+                    {hasPermissions('manage_vehicles') &&  (
+                      <th className="px-3 py-3"></th>
+                    )} 
+
                   </tr>
                 </thead>
 
@@ -113,7 +124,10 @@ export default function Index({ auth, vehicles,queryParams = null, success }) {
                     <th className="px-3 py-3">TYPE</th>
                     <th className="px-3 py-3">CREATED BY</th>
                     <th className="px-3 py-3">UPDATED BY</th>
-                    <th className="px-3 py-3 text-right">ACTIONS</th>
+                    <th className="px-3 py-3">ASSIGNED USER</th>
+                    {hasPermissions('manage_vehicles') &&  (
+                      <th className="px-3 py-3 text-right">ACTIONS</th>
+                    )}     
                   </tr>
                 </thead>
 
@@ -160,21 +174,28 @@ export default function Index({ auth, vehicles,queryParams = null, success }) {
                       <td className="px-3 py-2 text-nowrap">
                         {vehicle.updatedBy.name}
                       </td>
-                      <td className="px-3 py-2 text-nowrap">
-                        <Link
-                          href={route("vehicle.edit", vehicle.id)}
-                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1"
-                        >
-                          Edit
-                        </Link>
-
-                        <button
-                          onClick={(e) => deleteVehicle(vehicle)}
-                          className="font-medium text-red-600 dark:text-red-500 hover:underline mx-1"
-                        >
-                          Delete
-                        </button>
+                      <td className="px-3 py-2  text-white text-nowrap hover:underline">
+                        <Link href={route("user.show", vehicle?.assignedUser?.id ?? "1", vehicle)}>{ vehicle?.assignedUser?.name ?? "No Assigned User"}</Link>
+                        
                       </td>
+                      {hasPermissions('manage_vehicles') &&  (
+                      <td className="px-3 py-2 text-nowrap">
+                      <Link
+                        href={route("vehicle.edit", vehicle.id)}
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1"
+                      >
+                        Edit
+                      </Link>
+
+                      <button
+                        onClick={(e) => deleteVehicle(vehicle)}
+                        className="font-medium text-red-600 dark:text-red-500 hover:underline mx-1"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                    )} 
+                      
                     </tr>
                   ))}
                 </tbody>
