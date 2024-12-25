@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserCrudResource;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -54,14 +56,20 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        
+        return inertia("User/Show", [
+            'user' => new UserResource($user),
+        ]);
     }
+    
+    
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(User $user)
     {
+        
         return inertia('User/Edit' , [
             'user' => new UserCrudResource($user),
         ]);
@@ -72,6 +80,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+        
         $data = $request->validated();
         $password = $data['password']?? null;
         if($password){
@@ -90,6 +99,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        
+
         $name = $user->name;
         $user->delete();
         return to_route('user.index')->with('success' , "User

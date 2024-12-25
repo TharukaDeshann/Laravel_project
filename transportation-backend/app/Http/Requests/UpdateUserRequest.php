@@ -30,6 +30,7 @@ class UpdateUserRequest extends FormRequest
             "email" => ["required", "email", Rule::unique('users')->ignore($this->user)],
             "password" => [ "nullable", "confirmed",
              Password::min(8)->letters()->symbols(),],
+            
         ];
     }
 }

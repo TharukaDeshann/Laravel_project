@@ -5,8 +5,17 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function AuthenticatedLayout({user ,header, children }) {
-    
+export default function AuthenticatedLayout({user = {} ,header, children }) {
+    const userPermissions = user?.permissions || [];
+    const hasPermissions = (permission) => {
+        return userPermissions.includes(permission);
+    };
+
+    const userRoles = user?.roles || [];
+    const hasRoles = (role) => {
+        return userRoles.includes(role);
+    };
+        
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
@@ -33,14 +42,28 @@ export default function AuthenticatedLayout({user ,header, children }) {
                                     href={route('vehicle.index')}
                                     active={route().current('vehicle.index')}
                                 >
-                                    All Vehicles
+                                    Vehicles
                                 </NavLink>
 
                                 <NavLink
                                     href={route('user.index')}
                                     active={route().current('user.index')}
                                 >
-                                    Users
+                                    Drivers
+                                </NavLink>
+
+                                 {hasRoles('admin') && <NavLink
+                                    href={route('admin.dashboard')}
+                                    active={route().current('admin.dashboard')}
+                                >
+                                    Manage
+                                </NavLink>}
+
+                                <NavLink
+                                    href={route('user.profile', user)}
+                                    active={route().current('user.profile', user)}
+                                >
+                                    Profile
                                 </NavLink>
                                 
                                 
@@ -58,7 +81,7 @@ export default function AuthenticatedLayout({user ,header, children }) {
                                                 type="button"
                                                 className="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-300"
                                             >
-                                                {user.name}
+                                                {user?.name || "Guest"}
 
                                                 <svg
                                                     className="-me-0.5 ms-2 h-4 w-4"
@@ -79,6 +102,7 @@ export default function AuthenticatedLayout({user ,header, children }) {
                                     <Dropdown.Content>
                                         <Dropdown.Link
                                             href={route('profile.edit')}
+                                            
                                         >
                                             Profile
                                         </Dropdown.Link>
@@ -155,7 +179,8 @@ export default function AuthenticatedLayout({user ,header, children }) {
                     <div className="border-t border-gray-200 pb-1 pt-4 dark:border-gray-600">
                         <div className="px-4">
                             <div className="text-base font-medium text-gray-800 dark:text-gray-200">
-                                {user.name}
+                            {user?.name || "Guest"}
+
                             </div>
                             <div className="text-sm font-medium text-gray-500">
                                 {user.email}
