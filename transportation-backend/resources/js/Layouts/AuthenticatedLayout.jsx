@@ -6,9 +6,19 @@ import { Link } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function AuthenticatedLayout({user = {} ,header, children }) {
-    console.log(user)
+    const userPermissions = user?.permissions || [];
+    const hasPermissions = (permission) => {
+        return userPermissions.includes(permission);
+    };
+
+    const userRoles = user?.roles || [];
+    const hasRoles = (role) => {
+        return userRoles.includes(role);
+    };
+        
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
             <nav className="border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -32,14 +42,28 @@ export default function AuthenticatedLayout({user = {} ,header, children }) {
                                     href={route('vehicle.index')}
                                     active={route().current('vehicle.index')}
                                 >
-                                    All Vehicles
+                                    Vehicles
                                 </NavLink>
 
                                 <NavLink
                                     href={route('user.index')}
                                     active={route().current('user.index')}
                                 >
-                                    Users
+                                    Drivers
+                                </NavLink>
+
+                                 {hasRoles('admin') && <NavLink
+                                    href={route('admin.dashboard')}
+                                    active={route().current('admin.dashboard')}
+                                >
+                                    Manage
+                                </NavLink>}
+
+                                <NavLink
+                                    href={route('user.profile', user)}
+                                    active={route().current('user.profile', user)}
+                                >
+                                    Profile
                                 </NavLink>
                                 
                                 

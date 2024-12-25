@@ -73,7 +73,18 @@ export default function Index({ auth, users,  success }) {
                       key={user.id}
                     >
                       <td className="px-3 py-2">{user.id}</td>
-                      <td className="px-3 py-2 text-nowrap">{user.name}</td>
+
+
+                      <td className="px-3 py-2 text-white text-nowrap hover:underline">
+                      <Link
+                        href={route("user.show", user.id)}
+                        
+                      >
+                        {user.name}
+                      </Link>
+                    </td>
+
+                      
                       <td className="px-3 py-2">{user.email}</td>
                       <td className="px-3 py-2">{user.created_at}</td>
                       <td className="px-3 py-2">{user.role}</td>

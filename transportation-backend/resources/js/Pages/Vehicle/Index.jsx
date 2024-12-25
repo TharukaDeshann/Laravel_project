@@ -174,10 +174,14 @@ export default function Index({ auth, vehicles,queryParams = null, success }) {
                       <td className="px-3 py-2 text-nowrap">
                         {vehicle.updatedBy.name}
                       </td>
-                      <td className="px-3 py-2  text-white text-nowrap hover:underline">
-                        <Link href={route("user.show", vehicle?.assignedUser?.id ?? "1", vehicle)}>{ vehicle?.assignedUser?.name ?? "No Assigned User"}</Link>
+                      <td className="px-3 py-2 text-white text-nowrap hover:underline">
+                      <Link
+                        href={route("user.show", vehicle?.assignedUser?.id ?? "")}
                         
-                      </td>
+                      >
+                        { vehicle?.assignedUser?.name ?? "No Assigned User"}
+                      </Link>
+                    </td>
                       {hasPermissions('manage_vehicles') &&  (
                       <td className="px-3 py-2 text-nowrap">
                       <Link

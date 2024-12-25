@@ -72,7 +72,7 @@ export default function Show({ auth, vehicle }) {
                   </div>
                   <div className="mt-4">
                     <label className="font-bold text-lg">Assigned user</label>
-                    <p className="mt-1  text-white text-nowrap hover:underline"><Link href={route("user.show", vehicle?.assignedUser?.id ?? "1")}>{vehicle?.assignedUser?.name ?? "Unknown"}</Link></p>
+                    <p className="mt-1  text-white text-nowrap ">{vehicle?.assignedUser?.name ?? "Unknown"}</p>
                   </div>
 
                     </div>
