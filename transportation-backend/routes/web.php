@@ -34,6 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     ->middleware('can:' . PermissionsEnum::ManageDrivers->value);
     
     Route::get('/user/{user}', [UserController::class, 'show'])
+    
             ->name('user.show');
 
     Route::get('/user', [UserController::class, 'index'])
