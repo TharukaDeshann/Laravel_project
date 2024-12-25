@@ -9,6 +9,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserCrudResource;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -72,6 +73,7 @@ class UserController extends Controller
         
         return inertia('User/Edit' , [
             'user' => new UserCrudResource($user),
+            'roles' => Role::all(),
         ]);
     }
 
