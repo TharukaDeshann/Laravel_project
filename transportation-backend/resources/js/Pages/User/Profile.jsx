@@ -37,7 +37,7 @@ export default function Show({ auth, user }) {
           <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden mb-6">
             <div className="flex items-center p-6">
               <div className="w-20 h-20 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700">
-                <img
+              <img
                   src={user.image_path || "https://via.placeholder.com/80"}
                   alt={`${user.name}'s profile`}
                   className="w-full h-full object-cover"

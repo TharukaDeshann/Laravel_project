@@ -5,9 +5,11 @@ namespace App\Http\Resources;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class UserResource extends JsonResource
 {
+    
     /**
      * Transform the resource into an array.
      *
@@ -25,7 +27,9 @@ class UserResource extends JsonResource
             ->map(function ($permission) {
                 return $permission->name;
             }),
-            'roles' => $this->getRoleNames()
+            'roles' => $this->getRoleNames(),
+            'image_path' => $this->image_path ? 
+            Storage::url($this->image_path) : '',
 
         ];
     }

@@ -6,6 +6,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserCreateController;
+use App\Http\Controllers\VehicleCreateController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -53,6 +55,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('user', UserController::class)
                 ->except(['index', 'show'])
                 ->middleware('can:' . PermissionsEnum::ManageDrivers->value);
+        
+        Route::resource('usercreate', UserCreateController::class)    
+                ->middleware('can:' . PermissionsEnum::ManageDrivers->value);
+        Route::resource('vehiclecreate', VehicleCreateController::class)    
+                ->middleware('can:' . PermissionsEnum::ManageDrivers->value);
 });
 
 
@@ -61,7 +68,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
         Route::get('/user{user}', [ProfileController::class, 'profile'])->name('user.profile');
 });

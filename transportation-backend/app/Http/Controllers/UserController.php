@@ -9,10 +9,13 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserCrudResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      */
@@ -34,10 +37,11 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        return inertia("User/Create");
-    }
+    // public function create()
+    // {
+    //     return inertia("User/Create");
+    // }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -48,6 +52,11 @@ class UserController extends Controller
         $data['email_verified_at'] = time();
 
         $data['password'] = bcrypt($data['password']);
+        /** @var $image \Illuminate\Http\UploadedFile */
+        $image = $data['image'] ?? null;
+        if($image){
+            $data['image_path'] = $image->store('user/' .Str::random(), 'public');
+        }
         User::create($data);
         return to_route('user.index')->with('success', 'User was created');
     }
@@ -103,6 +112,9 @@ class UserController extends Controller
 
         $name = $user->name;
         $user->delete();
+        if($user->image_path){
+            Storage::disk('public')->deleteDirectory(dirname($user->image_path));
+        }
         return to_route('user.index')->with('success' , "User
          \"$name\" was deleted");
 

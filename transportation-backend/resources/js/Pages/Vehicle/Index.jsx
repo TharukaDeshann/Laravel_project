@@ -46,7 +46,7 @@ export default function Index({ auth, vehicles,queryParams = null, success }) {
           </h2>
           {hasPermissions('manage_vehicles') && (
             <Link
-            href={route("vehicle.create")}
+            href={route("vehiclecreate.create")}
             className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600"
           >
             Add new
@@ -143,7 +143,7 @@ export default function Index({ auth, vehicles,queryParams = null, success }) {
                     >
                       <td className="px-3 py-2">{vehicle.id}</td>
                       <td className="px-3 py-2">
-                        <img src={vehicle.image_path} style={{ width: 60 }} />
+                        <img src={vehicle.image_path} style={{ width: 60 } } />
                       </td>
 
                       <th className="px-3 py-2 text-white text-nowrap hover:underline">
