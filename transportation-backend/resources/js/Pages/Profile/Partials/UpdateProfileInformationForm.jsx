@@ -12,16 +12,23 @@ export default function UpdateProfileInformation({
 }) {
     const user = usePage().props.auth.user;
 
-    const { data, setData, patch, errors, processing, recentlySuccessful } =
-        useForm({
-            name: user.name,
-            email: user.email,
-        });
+    const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
+        name: user.name,
+        email: user.email,
+        image: null,
+        _method: "PUT",
+    });
 
     const submit = (e) => {
         e.preventDefault();
 
-        patch(route('profile.update'));
+        // Send data with multipart/form-data
+        post(route('profile.update'), {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+            preserveScroll: true,
+        });
     };
 
     return (
@@ -36,26 +43,37 @@ export default function UpdateProfileInformation({
                 </p>
             </header>
 
-            <form onSubmit={submit} className="mt-6 space-y-6">
+            <form onSubmit={submit} className="mt-6 space-y-6" encType="multipart/form-data">
+                {/* Image Input */}
+                <div>
+                    <InputLabel htmlFor="user_image_path" value="Profile Picture" />
+                    <input
+                        id="user_image_path"
+                        type="file"
+                        name="image"
+                        className="mt-1 block w-full"
+                        onChange={(e) => setData("image", e.target.files[0])}
+                    />
+                    <InputError message={errors.image} className="mt-2" />
+                </div>
+
+                {/* Name Input */}
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
-
                     <TextInput
                         id="name"
                         className="mt-1 block w-full"
                         value={data.name}
                         onChange={(e) => setData('name', e.target.value)}
                         required
-                        isFocused
                         autoComplete="name"
                     />
-
-                    <InputError className="mt-2" message={errors.name} />
+                    <InputError message={errors.name} className="mt-2" />
                 </div>
 
+                {/* Email Input */}
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
-
                     <TextInput
                         id="email"
                         type="email"
@@ -65,10 +83,10 @@ export default function UpdateProfileInformation({
                         required
                         autoComplete="username"
                     />
-
-                    <InputError className="mt-2" message={errors.email} />
+                    <InputError message={errors.email} className="mt-2" />
                 </div>
 
+                {/* Email Verification Message */}
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
                         <p className="mt-2 text-sm text-gray-800 dark:text-gray-200">
@@ -82,16 +100,15 @@ export default function UpdateProfileInformation({
                                 Click here to re-send the verification email.
                             </Link>
                         </p>
-
                         {status === 'verification-link-sent' && (
                             <div className="mt-2 text-sm font-medium text-green-600 dark:text-green-400">
-                                A new verification link has been sent to your
-                                email address.
+                                A new verification link has been sent to your email address.
                             </div>
                         )}
                     </div>
                 )}
 
+                {/* Save Button */}
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>
 
@@ -102,9 +119,7 @@ export default function UpdateProfileInformation({
                         leave="transition ease-in-out"
                         leaveTo="opacity-0"
                     >
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                            Saved.
-                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Saved.</p>
                     </Transition>
                 </div>
             </form>

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class VehicleResource extends JsonResource
 {
+    
     /**
      * Transform the resource into an array.
      *

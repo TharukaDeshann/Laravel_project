@@ -4,44 +4,56 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
+export default function Create({ auth }) {
+  const { data, setData, post, errors, reset } = useForm({
+    image: "",
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  });
 
-export default function Create({auth}){
-    const {data, setData, post, errors, reset} = useForm({
-        name: "",
-        email: "",
-        password: "",
-        password_confirmation: "", 
-    })
+  const onSubmit = (e) => {
+    e.preventDefault();
 
-    const onSubmit = (e) => {
-        e.preventDefault();
-    
-        post(route("user.store"));
-      };
+    post(route("user.store"));
+  };
 
-    return (
-        <AuthenticatedLayout
-        user={auth.user}
-        header={
-          <div className="flex justify-between items-center">
-            <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-              Create new User
-            </h2>
-           
-            </div>
-            
-        }
-        >
-             <Head title="Users" />
+  return (
+    <AuthenticatedLayout
+      user={auth.user}
+      header={
+        <div className="flex justify-between items-center">
+          <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            Create new User
+          </h2>
+        </div>
+      }
+    >
+      <Head title="Users" />
 
-<div className="py-12">
-    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
-          
-              <form onSubmit={onSubmit}
-              className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                
-                <div className="mt-4">
+      <div className="py-12">
+        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
+            <form
+              onSubmit={onSubmit}
+              className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+            >
+              <div>
+                <InputLabel
+                  htmlFor="user_image_path"
+                  value="Profile Picture"
+                />
+                <TextInput
+                  id="user_image_path"
+                  type="file"
+                  name="image"
+                  className="mt-1 block w-full"
+                  onChange={(e) => setData("image", e.target.files[0])}
+                />
+                <InputError message={errors.image} className="mt-2" />
+              </div>
+              <div className="mt-4">
                 <InputLabel htmlFor="user_name" value="Name" />
 
                 <TextInput
@@ -56,14 +68,9 @@ export default function Create({auth}){
 
                 <InputError message={errors.name} className="mt-2" />
               </div>
-              
-             
 
               <div className="mt-4">
-                <InputLabel
-                  htmlFor="user_email"
-                  value="Email"
-                />
+                <InputLabel htmlFor="user_email" value="Email" />
 
                 <TextInput
                   id="user_email"
@@ -77,12 +84,8 @@ export default function Create({auth}){
                 <InputError message={errors.email} className="mt-2" />
               </div>
 
-
               <div className="mt-4">
-                <InputLabel
-                  htmlFor="user_password"
-                  value="Password"
-                />
+                <InputLabel htmlFor="user_password" value="Password" />
 
                 <TextInput
                   id="user_password"
@@ -108,13 +111,17 @@ export default function Create({auth}){
                   name="password_confirmation"
                   value={data.password_confirmation}
                   className="mt-1 block w-full"
-                  onChange={(e) => setData("password_confirmation", e.target.value)}
+                  onChange={(e) =>
+                    setData("password_confirmation", e.target.value)
+                  }
                 />
 
-                <InputError message={errors.password_confirmation} className="mt-2" />
-              
+                <InputError
+                  message={errors.password_confirmation}
+                  className="mt-2"
+                />
               </div>
-              
+
               <div className="mt-4 text-right">
                 <Link
                   href={route("user.index")}
@@ -126,12 +133,10 @@ export default function Create({auth}){
                   Submit
                 </button>
               </div>
-              
-              </form>
-            </div>
-            </div>
-            </div>
-           
-        </AuthenticatedLayout>
-    );
+            </form>
+          </div>
+        </div>
+      </div>
+    </AuthenticatedLayout>
+  );
 }
