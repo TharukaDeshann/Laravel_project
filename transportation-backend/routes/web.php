@@ -18,8 +18,8 @@ Route::redirect('/', '/dashboard');
 Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware([
                 sprintf('role:%s|%s', 
-                RolesEnum::Driver->value, 
                 RolesEnum::Admin->value,
+                RolesEnum::Driver->value, 
                 )
                 ])->group(function () {
                 Route::get('/dashboard', [DashboardController::class, 'index'])
@@ -30,7 +30,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
                 Route::get('/user', [UserController::class, 'index'])
                         ->name('user.index');
-
 
 
 

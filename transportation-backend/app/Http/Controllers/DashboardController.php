@@ -10,8 +10,16 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index(){
-        return inertia('Dashboard');
+    public function index(Request $request){
+        $user = $request->user();
+
+    // Fetch vehicles assigned to the user
+    $assignedVehicles = Vehicle::where('assigned_user_id', $user->id)->get();
+
+    return inertia('Dashboard', [
+        'auth' => ['user' => $user],
+        'assignedVehicles' => $assignedVehicles,
+    ]);
     }
     public function adminindex()
     {
