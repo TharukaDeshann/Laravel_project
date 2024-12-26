@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Enum\RolesEnum;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
@@ -74,6 +74,7 @@ class UserController extends Controller
         return inertia('User/Edit' , [
             'user' => new UserCrudResource($user),
             'roles' => Role::all(),
+            'roleLabels' => RolesEnum::labels(),
         ]);
     }
 
@@ -84,16 +85,13 @@ class UserController extends Controller
     {
         
         $data = $request->validated();
-        $password = $data['password']?? null;
-        if($password){
-            $data['password'] = bcrypt($password);
-        }else{
-            unset($data['password']);
-        }
-        $user->update($data);
+
+        
+        $user->syncRoles($data['roles']);
+        
 
         return to_route('user.index')
-        ->with('success',"User \"$user->name\" was updated");
+        ->with('success',"User Roles were updated");
     }
 
     /**

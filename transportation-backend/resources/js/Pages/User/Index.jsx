@@ -97,7 +97,7 @@ export default function Index({ auth, users,  success }) {
                           href={route("user.edit", user.id)}
                           className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1"
                         >
-                          Edit
+                          Change Role
                         </Link>
 
                         <button
