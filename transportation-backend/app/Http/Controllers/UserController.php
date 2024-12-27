@@ -24,13 +24,19 @@ class UserController extends Controller
         $query = User::query();
 
         // $users = User::with(['owner', 'createdBy', 'updatedBy'])->get();
-
+        if(request("name")){
+            $query->where("name", "like", "%".request("name")."%");
+        }
+        if(request("role")){
+            $query->where("role", request("role"));
+        }
 
         $users = $query->paginate(10)->onEachSide(1);
 
         return inertia("User/Index", [
             "users" => UserCrudResource::collection($users),
             'success' =>  session('success'),
+            'queryParams' => request()->query() ?: null,
         ] );
     }
 
