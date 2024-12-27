@@ -2,6 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
 export default function Dashboard({ auth, assignedVehicles }) {
+  
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -12,6 +13,7 @@ export default function Dashboard({ auth, assignedVehicles }) {
       }
     >
       <Head title="Dashboard" />
+      
 
       <div className="py-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
