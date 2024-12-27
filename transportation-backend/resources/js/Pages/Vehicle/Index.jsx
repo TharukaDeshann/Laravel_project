@@ -139,7 +139,7 @@ export default function Index({ auth, vehicles, queryParams = null, success }) {
                           </Link>
                         </td>
                         <td className="px-4 py-3">
-                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${VEHICLE_STATUS_CLASS_MAP[vehicle.status]}`}>
+                          <span className={`px-3 py-1 text-white rounded text-sm font-medium ${VEHICLE_STATUS_CLASS_MAP[vehicle.status]}`}>
                             {VEHICLE_STATUS_TEXT_MAP[vehicle.status]}
                           </span>
                         </td>
