@@ -27,6 +27,9 @@ class VehicleController extends Controller
         if(request("type")){
             $query->where("type", request("type"));
         }
+        if(request("status")){
+            $query->where("status", request("status"));
+        }
 
         $vehicles = $query->paginate(10)->onEachSide(1);
 
