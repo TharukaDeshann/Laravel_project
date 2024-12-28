@@ -14,16 +14,11 @@ use Inertia\Inertia;
 use App\Http\Middleware\AdminMiddleware;
 
 
-Route::redirect('/', '/dashboard');
+Route::redirect('/', '/register');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-        Route::middleware([
-                sprintf('role:%s|%s', 
-                RolesEnum::Admin->value,
-                RolesEnum::Driver->value, 
-                )
-                ])->group(function () {
+        
                 Route::get('/dashboard', [DashboardController::class, 'index'])
                         ->name('dashboard');
                 Route::get('/user/{user}', [UserController::class, 'show'])
@@ -40,7 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
                 Route::get('/vehicle/{vehicle}', [VehicleController::class, 'show'])
                         ->name('vehicle.show');
-        });
+        
 
         Route::get("/admin/dashboard", [DashboardController::class, 'adminindex'])
                 ->name('admin.dashboard')

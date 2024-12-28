@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('image_path')->nullable();
             $table->foreignId('assigned_user_id')
             ->nullable()
-            ->constrained('users');            
+            ->constrained('users')
+            ->onDelete('set null');           
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->constrained('users');
             $table->timestamps(); // Created_at and Updated_at
