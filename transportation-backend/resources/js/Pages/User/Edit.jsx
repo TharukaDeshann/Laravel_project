@@ -1,10 +1,8 @@
-
 import Radio from "@/Components/Radio";
-
 import InputLabel from "@/Components/InputLabel";
-
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { FaArrowLeft, FaSave, FaTimes } from "react-icons/fa";
 
 export default function Edit({ auth, user, roles, roleLabels }) {
   const { data, setData, post, errors } = useForm({
@@ -17,11 +15,10 @@ export default function Edit({ auth, user, roles, roleLabels }) {
   });
 
   const onRoleChange = (ev) => {
-    console.log(ev.target.value, ev.target.checked)
     if (ev.target.checked) {
-      setData('roles', [ev.target.value])
+      setData('roles', [ev.target.value]);
     }
-  }
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -33,55 +30,71 @@ export default function Edit({ auth, user, roles, roleLabels }) {
       user={auth.user}
       header={
         <div className="flex justify-between items-center">
-          <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Change User Role "{user.name || "Unknown"}"
+          <h2 className="text-2xl font-bold text-[#373a36]">
+            Change User Role - {user.name || "Unknown"}
           </h2>
+          <Link
+            href={route("user.index")}
+            className="text-[#d48166] hover:text-[#d48166]/80 transition-all duration-200 flex items-center gap-2"
+          >
+            <FaArrowLeft className="text-sm" />
+            Back to Users
+          </Link>
         </div>
       }
     >
       <Head title="Edit User Role" />
 
-      <div className="py-12">
-        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-          
-            <form
-              onSubmit={onSubmit}
-              className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
-            >
-              
-                  <div className="mt-4">
-              <InputLabel value="Role"/>
-              {roles.map((role) => (
-                <label className="flex items-center mb-1" key={role.id}>
-                  <Radio
-                    name="roles"
-                    checked={data.roles.includes(role.name)}
-                    value={role.name}
-                    onChange={onRoleChange}
-                  />
-                  <span className="ms-2 text-sm text-gray-600 dark:text-gray-400">
-                      {roleLabels[role.name]}
-                  </span>
-                </label>
-              ))}
+      <div className="py-6">
+        <div className="mx-auto max-w-3xl">
+          <div className="bg-white rounded-lg shadow-sm border border-[#d48166]/10">
+            <form onSubmit={onSubmit} className="p-6">
+              <div>
+                <InputLabel 
+                  value="Role" 
+                  className="text-[#373a36] text-lg font-semibold mb-4 block "
+                />
+                <div className="space-y-3">
+                  {roles.map((role) => (
+                    <label 
+                      className="flex items-center p-3 rounded-lg hover:bg-[#e6e2dd]/50 transition-colors cursor-pointer" 
+                      key={role.id}
+                    >
+                      <Radio
+                        name="roles"
+                        checked={data.roles.includes(role.name)}
+                        value={role.name}
+                        onChange={onRoleChange}
+                        className="text-[#d48166] focus:ring-[#d48166]"
+                      />
+                      <span className="ml-3 text-[#373a36]">
+                        {roleLabels[role.name]}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
 
-            </div>
-
-              <div className="mt-4 text-right">
+              <div className="mt-6 flex justify-end gap-3">
                 <Link
                   href={route("user.index")}
-                  className="bg-gray-100 py-1 px-3 text-gray-800 rounded shadow transition-all hover:bg-gray-200 mr-2"
+                  className="px-4 py-2 bg-[#e6e2dd] text-[#373a36] rounded-lg hover:bg-[#e6e2dd]/80 transition-all duration-200 flex items-center gap-2"
                 >
+                  <FaTimes className="text-sm" />
                   Cancel
                 </Link>
-                <button className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600">
-                  Save
+                <button 
+                  type="submit"
+                  className="px-4 py-2 bg-[#d48166] text-white rounded-lg hover:bg-[#d48166]/90 transition-all duration-200 flex items-center gap-2"
+                >
+                  <FaSave className="text-sm" />
+                  Save Changes
                 </button>
               </div>
             </form>
           </div>
         </div>
-      
+      </div>
     </AuthenticatedLayout>
   );
 }

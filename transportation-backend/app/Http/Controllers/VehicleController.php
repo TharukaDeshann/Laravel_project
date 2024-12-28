@@ -27,6 +27,9 @@ class VehicleController extends Controller
         if(request("type")){
             $query->where("type", request("type"));
         }
+        if(request("status")){
+            $query->where("status", request("status"));
+        }
 
         $vehicles = $query->paginate(10)->onEachSide(1);
 
@@ -40,13 +43,13 @@ class VehicleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        $users = User::all();
-        return inertia("Vehicle/Create", [
-            'users' => UserResource::collection($users),
-        ]);
-    }
+    // public function create()
+    // {
+    //     $users = User::all();
+    //     return inertia("Vehicle/Create", [
+    //         'users' => UserResource::collection($users),
+    //     ]);
+    // }
 
     /**
      * Store a newly created resource in storage.

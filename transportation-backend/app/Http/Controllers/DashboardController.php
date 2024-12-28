@@ -17,7 +17,7 @@ class DashboardController extends Controller
     $assignedVehicles = Vehicle::where('assigned_user_id', $user->id)->get();
 
     return inertia('Dashboard', [
-        'auth' => ['user' => $user],
+        
         'assignedVehicles' => $assignedVehicles,
     ]);
     }

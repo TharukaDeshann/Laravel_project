@@ -3,135 +3,152 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { FaArrowLeft, FaSave, FaTimes } from "react-icons/fa";
 
+export default function Create({ auth }) {
+  const { data, setData, post, errors, reset } = useForm({
+    image: "",
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  });
 
-export default function Create({auth}){
-    const {data, setData, post, errors, reset} = useForm({
-        name: "",
-        email: "",
-        password: "",
-        password_confirmation: "", 
-    })
+  const onSubmit = (e) => {
+    e.preventDefault();
+    post(route("user.store"));
+  };
 
-    const onSubmit = (e) => {
-        e.preventDefault();
-    
-        post(route("user.store"));
-      };
+  return (
+    <AuthenticatedLayout
+      user={auth.user}
+      header={
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-bold text-[#373a36]">
+            Create New User
+          </h2>
+          <Link
+            href={route("user.index")}
+            className="text-[#d48166] hover:text-[#d48166]/80 transition-all duration-200 flex items-center gap-2"
+          >
+            <FaArrowLeft className="text-sm" />
+            Back to Users
+          </Link>
+        </div>
+      }
+    >
+      <Head title="Create User" />
 
-    return (
-        <AuthenticatedLayout
-        user={auth.user}
-        header={
-          <div className="flex justify-between items-center">
-            <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-              Create new User
-            </h2>
-           
-            </div>
-            
-        }
-        >
-             <Head title="Users" />
+      <div className="py-6">
+        <div className="mx-auto max-w-3xl">
+          <div className="bg-white rounded-lg shadow-sm border border-[#d48166]/10">
+            <form onSubmit={onSubmit} className="p-6">
+              <div className="space-y-6">
+                <div>
+                  <InputLabel
+                    htmlFor="user_image_path"
+                    value="Profile Picture"
+                    className="text-[#373a36] block text-sm font-medium"
+                  />
+                  <TextInput
+                    id="user_image_path"
+                    type="file"
+                    name="image"
+                    className="mt-1 block w-full border-[#d48166]/20 focus:border-[#d48166] focus:ring-[#d48166] block text-sm font-medium"
+                    onChange={(e) => setData("image", e.target.files[0])}
+                  />
+                  <InputError message={errors.image} className="mt-2" />
+                </div>
 
-<div className="py-12">
-    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
-          
-              <form onSubmit={onSubmit}
-              className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                
-                <div className="mt-4">
-                <InputLabel htmlFor="user_name" value="Name" />
+                <div>
+                  <InputLabel 
+                    htmlFor="user_name block text-sm font-medium" 
+                    value="Name"
+                    className="text-[#373a36] block text-sm font-medium"
+                  />
+                  <TextInput
+                    id="user_name"
+                    type="text"
+                    name="name"
+                    value={data.name}
+                    className="mt-1 block w-full border-[#d48166]/20 focus:border-[#d48166] focus:ring-[#d48166]"
+                    onChange={(e) => setData("name", e.target.value)}
+                  />
+                  <InputError message={errors.name} className="mt-2" />
+                </div>
 
-                <TextInput
-                  id="user_name"
-                  type="text"
-                  name="name"
-                  isFocused={true}
-                  value={data.name}
-                  className="mt-1 block w-full"
-                  onChange={(e) => setData("name", e.target.value)}
-                />
+                <div>
+                  <InputLabel 
+                    htmlFor="user_email" 
+                    value="Email"
+                    className="text-[#373a36] block text-sm font-medium"
+                  />
+                  <TextInput
+                    id="user_email"
+                    type="email"
+                    name="email"
+                    value={data.email}
+                    className="mt-1 block w-full border-[#d48166]/20 focus:border-[#d48166] focus:ring-[#d48166]"
+                    onChange={(e) => setData("email", e.target.value)}
+                  />
+                  <InputError message={errors.email} className="mt-2" />
+                </div>
 
-                <InputError message={errors.name} className="mt-2" />
+                <div>
+                  <InputLabel 
+                    htmlFor="user_password" 
+                    value="Password"
+                    className="text-[#373a36] block text-sm font-medium"
+                  />
+                  <TextInput
+                    id="user_password"
+                    type="password"
+                    name="password"
+                    value={data.password}
+                    className="mt-1 block w-full border-[#d48166]/20 focus:border-[#d48166] focus:ring-[#d48166]"
+                    onChange={(e) => setData("password", e.target.value)}
+                  />
+                  <InputError message={errors.password} className="mt-2" />
+                </div>
+
+                <div>
+                  <InputLabel
+                    htmlFor="user_password_confirmation"
+                    value="Confirm Password"
+                    className="text-[#373a36] block text-sm font-medium"
+                  />
+                  <TextInput
+                    id="user_password_confirmation"
+                    type="password"
+                    name="password_confirmation"
+                    value={data.password_confirmation}
+                    className="mt-1 block w-full border-[#d48166]/20 focus:border-[#d48166] focus:ring-[#d48166]"
+                    onChange={(e) => setData("password_confirmation", e.target.value)}
+                  />
+                  <InputError message={errors.password_confirmation} className="mt-2" />
+                </div>
               </div>
-              
-             
 
-              <div className="mt-4">
-                <InputLabel
-                  htmlFor="user_email"
-                  value="Email"
-                />
-
-                <TextInput
-                  id="user_email"
-                  type="email"
-                  name="email"
-                  value={data.email}
-                  className="mt-1 block w-full"
-                  onChange={(e) => setData("email", e.target.value)}
-                />
-
-                <InputError message={errors.email} className="mt-2" />
-              </div>
-
-
-              <div className="mt-4">
-                <InputLabel
-                  htmlFor="user_password"
-                  value="Password"
-                />
-
-                <TextInput
-                  id="user_password"
-                  type="password"
-                  name="password"
-                  value={data.password}
-                  className="mt-1 block w-full"
-                  onChange={(e) => setData("password", e.target.value)}
-                />
-
-                <InputError message={errors.password} className="mt-2" />
-              </div>
-
-              <div className="mt-4">
-                <InputLabel
-                  htmlFor="user_password_confirmation"
-                  value="Confirm Password"
-                />
-
-                <TextInput
-                  id="user_password_confirmation"
-                  type="password"
-                  name="password_confirmation"
-                  value={data.password_confirmation}
-                  className="mt-1 block w-full"
-                  onChange={(e) => setData("password_confirmation", e.target.value)}
-                />
-
-                <InputError message={errors.password_confirmation} className="mt-2" />
-              
-              </div>
-              
-              <div className="mt-4 text-right">
+              <div className="mt-6 flex justify-end gap-3">
                 <Link
                   href={route("user.index")}
-                  className="bg-gray-100 py-1 px-3 text-gray-800 rounded shadow transition-all hover:bg-gray-200 mr-2"
+                  className="px-4 py-2 bg-[#e6e2dd] text-[#373a36] rounded-lg hover:bg-[#e6e2dd]/80 transition-all duration-200 flex items-center gap-2"
                 >
+                  <FaTimes className="text-sm" />
                   Cancel
                 </Link>
-                <button className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600">
-                  Submit
+                <button 
+                  type="submit"
+                  className="px-4 py-2 bg-[#d48166] text-white rounded-lg hover:bg-[#d48166]/90 transition-all duration-200 flex items-center gap-2"
+                >
+                  <FaSave className="text-sm" />
+                  Create User
                 </button>
               </div>
-              
-              </form>
-            </div>
-            </div>
-            </div>
-           
-        </AuthenticatedLayout>
-    );
+            </form>
+          </div>
+        </div>
+      </div>
+    </AuthenticatedLayout>
+  );
 }
