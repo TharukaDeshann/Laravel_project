@@ -41,20 +41,21 @@ export default function Create({ auth }) {
 
       <div className="py-6">
         <div className="mx-auto max-w-3xl">
-          <div className="bg-white rounded-lg shadow-sm border border-[#d48166]/10">
+          <div className="bg-[#e6e2dd] rounded-lg shadow-sm border border-[#d48166]/10">
             <form onSubmit={onSubmit} className="p-6">
               <div className="space-y-6">
                 <div>
                   <InputLabel
                     htmlFor="user_image_path"
                     value="Profile Picture"
-                    className="text-[#373a36] block text-sm font-medium"
+                    
                   />
+                  
                   <TextInput
                     id="user_image_path"
                     type="file"
                     name="image"
-                    className="mt-1 block w-full border-[#d48166]/20 focus:border-[#d48166] focus:ring-[#d48166] block text-sm font-medium"
+                    className="mt-1 block w-full border-[#d48166]/20 focus:border-[#d48166] focus:ring-[#d48166]  text-sm font-medium"
                     onChange={(e) => setData("image", e.target.files[0])}
                   />
                   <InputError message={errors.image} className="mt-2" />
@@ -64,7 +65,7 @@ export default function Create({ auth }) {
                   <InputLabel 
                     htmlFor="user_name block text-sm font-medium" 
                     value="Name"
-                    className="text-[#373a36] block text-sm font-medium"
+                    required
                   />
                   <TextInput
                     id="user_name"
@@ -81,7 +82,7 @@ export default function Create({ auth }) {
                   <InputLabel 
                     htmlFor="user_email" 
                     value="Email"
-                    className="text-[#373a36] block text-sm font-medium"
+                    required
                   />
                   <TextInput
                     id="user_email"
@@ -98,7 +99,7 @@ export default function Create({ auth }) {
                   <InputLabel 
                     htmlFor="user_password" 
                     value="Password"
-                    className="text-[#373a36] block text-sm font-medium"
+                    required
                   />
                   <TextInput
                     id="user_password"
@@ -115,7 +116,7 @@ export default function Create({ auth }) {
                   <InputLabel
                     htmlFor="user_password_confirmation"
                     value="Confirm Password"
-                    className="text-[#373a36] block text-sm font-medium"
+                    required
                   />
                   <TextInput
                     id="user_password_confirmation"
@@ -132,7 +133,7 @@ export default function Create({ auth }) {
               <div className="mt-6 flex justify-end gap-3">
                 <Link
                   href={route("user.index")}
-                  className="px-4 py-2 bg-[#e6e2dd] text-[#373a36] rounded-lg hover:bg-[#e6e2dd]/80 transition-all duration-200 flex items-center gap-2"
+                  className="px-4 py-2 bg-white text-[#373a36] rounded-lg hover:bg-gray-100 transition-all duration-200 flex items-center gap-2"
                 >
                   <FaTimes className="text-sm" />
                   Cancel

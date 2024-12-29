@@ -2,12 +2,14 @@
 
 use App\Enum\PermissionsEnum;
 use App\Enum\RolesEnum;
+use App\Http\Controllers\assignmentCreateController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserCreateController;
 use App\Http\Controllers\VehicleCreateController;
+use App\Http\Controllers\AssignmentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,6 +17,26 @@ use App\Http\Middleware\AdminMiddleware;
 
 
 Route::redirect('/', '/register');
+
+// Route::get('/userdetails', [DashboardController::class, 'userdetails'])
+//         ->name('userdetails');
+
+// Route::get('/userdetails/{id}', [DashboardController::class, 'auser'])
+//         ->name('auser');
+
+// Route::delete('/userdetails/{id}', [DashboardController::class, 'deleteuser'])  
+//         ->name('deleteuser');
+
+// Route::put('/userdetails/{id}', [DashboardController::class, 'updateuser'])  
+//         ->name('updateuser');
+
+// Route::post('/userdetails', [DashboardController::class, 'createuser'])  
+//         ->name('createuser');
+
+// Route::get('/vehicledetails', [DashboardController::class, 'vehicledetails'])
+//         ->name('vehicledetails');
+// Route::get('/vehicledetails/{id}', [DashboardController::class, 'avehicle'])
+//         ->name('avehicle');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -35,10 +57,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
                 Route::get('/vehicle/{vehicle}', [VehicleController::class, 'show'])
                         ->name('vehicle.show');
+
+                Route::get('/assignment', [AssignmentController::class, 'index'])
+                        ->name('assignment.index');
+
+                Route::get('/assignment/{assignment}', [AssignmentController::class, 'show'])
+                        ->name('assignment.show');
         
 
         Route::get("/admin/dashboard", [DashboardController::class, 'adminindex'])
                 ->name('admin.dashboard')
+                ->middleware('can:' . PermissionsEnum::ManageDrivers->value)
+                ->middleware('can:' . PermissionsEnum::ManageVehicles->value)
+                ->middleware('can:' . PermissionsEnum::ManageFeatures->value);
+        
+        Route::resource('assignment', AssignmentController::class)
+                ->except(['index', 'show'])
                 ->middleware('can:' . PermissionsEnum::ManageDrivers->value)
                 ->middleware('can:' . PermissionsEnum::ManageVehicles->value)
                 ->middleware('can:' . PermissionsEnum::ManageFeatures->value);
@@ -53,7 +87,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
         Route::resource('usercreate', UserCreateController::class)    
                 ->middleware('can:' . PermissionsEnum::ManageDrivers->value);
+        
         Route::resource('vehiclecreate', VehicleCreateController::class)    
+                ->middleware('can:' . PermissionsEnum::ManageDrivers->value);
+        Route::resource('assignmentcreate', assignmentCreateController::class)    
                 ->middleware('can:' . PermissionsEnum::ManageDrivers->value);
 });
 

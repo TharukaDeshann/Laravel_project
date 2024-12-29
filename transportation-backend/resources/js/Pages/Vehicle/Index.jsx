@@ -196,8 +196,6 @@ export default function Index({ auth, vehicles, queryParams = null, success }) {
                     <th className="px-4 py-3 font-semibold text-left">Status</th>
                     <th className="px-4 py-3 font-semibold text-left">Capacity</th>
                     <th className="px-4 py-3 font-semibold text-left">Type</th>
-                    <th className="px-4 py-3 font-semibold text-left">Created By</th>
-                    <th className="px-4 py-3 font-semibold text-left">Updated By</th>
                     <th className="px-4 py-3 font-semibold text-left">Assigned To</th>
                     {hasPermissions('manage_vehicles') && (
                       <th className="px-4 py-3 text-right font-semibold">Actions</th>
@@ -246,8 +244,6 @@ export default function Index({ auth, vehicles, queryParams = null, success }) {
                           {vehicle.type}
                         </div>
                       </td>
-                      <td className="px-4 py-3">{vehicle.createdBy.name}</td>
-                      <td className="px-4 py-3">{vehicle.updatedBy.name}</td>
                       <td className="px-4 py-3">
                         {vehicle?.assignedUser ? (
                           <div className="flex items-center gap-2">
