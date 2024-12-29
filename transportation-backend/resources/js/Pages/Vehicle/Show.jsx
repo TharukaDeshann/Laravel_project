@@ -1,25 +1,32 @@
 import { VEHICLE_STATUS_CLASS_MAP, VEHICLE_STATUS_TEXT_MAP } from "@/constants";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function Show({ auth, vehicle }) {
   
   const userRoles = auth.user.roles;
   const hasRoles = (role) => userRoles.includes(role);
   return (
+    
     <AuthenticatedLayout
       user={auth.user}
       header={
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-semibold text-[#373a36]">
-            Vehicle Details: {vehicle?.model || 'Unknown Model'}
+          <h2 className="text-2xl font-bold text-[#373a36] flex items-center gap-2">
+            Vehicle Details: 
+            <span className="text-[#d48166]">-</span>
+            <span className="text-[#d48166]">{vehicle?.model || 'Unknown Model'}</span>
           </h2>
+         
+          
           <Link
-            href={route("vehicle.index")}
-            className="px-4 py-2 bg-[#d48166] text-white rounded-md hover:bg-[#d48166]/90 transition-colors"
-          >
-            Back to Vehicles
-          </Link>
+                      href={route("vehicle.index")}
+                      className="text-[#d48166] hover:text-[#d48166]/80 transition-all duration-200 flex items-center gap-2"
+                    >
+                      <FaArrowLeft className="text-sm" />
+                      Back to Vehicles
+                    </Link>
         </div>
       }
     >

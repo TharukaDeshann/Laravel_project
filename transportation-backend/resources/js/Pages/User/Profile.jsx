@@ -18,6 +18,7 @@ export default function Show({ auth, user }) {
       return;
     }
     router.delete(route("profile.destroy", user.id));
+    
   };
 
   return (
@@ -25,8 +26,10 @@ export default function Show({ auth, user }) {
       user={auth.user}
       header={
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-[#373a36]">
-            User Details - {user?.name || "Unknown"}
+          <h2 className="text-2xl font-bold text-[#373a36] flex items-center gap-2">
+            User Details
+            <span className="text-[#d48166]">-</span>
+            <span className="text-[#d48166]">{user?.name || "Unknown"}</span>
           </h2>
           <Link
             href={route("user.index")}

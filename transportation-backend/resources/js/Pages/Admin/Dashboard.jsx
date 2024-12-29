@@ -6,7 +6,7 @@ import { Head } from "@inertiajs/react";
 const QuickStats = ({ stats }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <div className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition-all">
+      <div className="bg-[#e6e2dd] rounded-lg shadow p-4 hover:shadow-lg transition-all">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-[#d48166]/20 rounded-full flex items-center justify-center mr-3">
             <span className="text-[#d48166] font-bold">👥</span>
@@ -18,7 +18,7 @@ const QuickStats = ({ stats }) => {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition-all">
+      <div className="bg-[#e6e2dd] rounded-lg shadow p-4 hover:shadow-lg transition-all">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-[#d48166]/20 rounded-full flex items-center justify-center mr-3">
             <span className="text-[#d48166] font-bold">🚗</span>
@@ -30,7 +30,7 @@ const QuickStats = ({ stats }) => {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition-all">
+      <div className="bg-[#e6e2dd] rounded-lg shadow p-4 hover:shadow-lg transition-all">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
             <span className="text-green-500 font-bold">✓</span>
@@ -42,7 +42,7 @@ const QuickStats = ({ stats }) => {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow p-4 hover:shadow-lg transition-all">
+      <div className="bg-[#e6e2dd] rounded-lg shadow p-4 hover:shadow-lg transition-all">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-[#d48166]/20 rounded-full flex items-center justify-center mr-3">
             <span className="text-[#d48166] font-bold">📅</span>
