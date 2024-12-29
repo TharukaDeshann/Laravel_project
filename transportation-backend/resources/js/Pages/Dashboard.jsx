@@ -6,7 +6,7 @@ import { Head, Link } from "@inertiajs/react";
 const QuickStats = ({ stats }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <div className="bg-white rounded-lg shadow p-4">
+      <div className="bg-[#e6e2dd] rounded-lg hover:shadow-lg transition-all p-4">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3">
             <span className="text-primary font-bold">🚗</span>
@@ -18,7 +18,7 @@ const QuickStats = ({ stats }) => {
         </div>
       </div>
       
-      <div className="bg-white rounded-lg shadow p-4">
+      <div className="bg-[#e6e2dd] rounded-lg hover:shadow-lg transition-all p-4">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
             <span className="text-green-500 font-bold">✓</span>
@@ -30,7 +30,7 @@ const QuickStats = ({ stats }) => {
         </div>
       </div>
       
-      <div className="bg-white rounded-lg shadow p-4">
+      <div className="bg-[#e6e2dd] rounded-lg hover:shadow-lg transition-all p-4">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3">
             <span className="text-red-500 font-bold">⚠</span>
@@ -66,7 +66,7 @@ const VehicleCard = ({ vehicle, className = '' }) => {
   }[vehicle.status] || "bg-gray-500";
 
   return (
-    <div className={`bg-white rounded-lg shadow-sm hover:shadow-lg transition-all ${className}`}>
+    <div className={`bg-[#e6e2dd] rounded-lg shadow-sm hover:shadow-lg transition-all ${className}`}>
       <div className="relative">
         <img
           src={vehicle?.image_path ? `/storage/${vehicle.image_path}` : '/api/placeholder/400/320'}
@@ -174,7 +174,7 @@ const AssignedVehiclesGrid = ({ vehicles }) => {
 // Enhanced UserStats Component
 const UserStats = ({ user }) => {
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <div className="bg-[#e6e2dd] rounded-lg shadow p-6">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
         <div className="flex items-center mb-4 md:mb-0">
           <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mr-4">

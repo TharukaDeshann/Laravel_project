@@ -17,7 +17,7 @@ const VehicleStats = ({ vehicles }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-      <div className="bg-white rounded-lg shadow-sm p-4">
+      <div className="bg-[#e6e2dd] rounded-lg hover:shadow-lg transition-all p-4">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-3">
             <span className="text-primary">🚗</span>
@@ -29,7 +29,7 @@ const VehicleStats = ({ vehicles }) => {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm p-4">
+      <div className="bg-[#e6e2dd] rounded-lg hover:shadow-lg transition-all p-4">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
             <span className="text-green-500">✓</span>
@@ -41,7 +41,7 @@ const VehicleStats = ({ vehicles }) => {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm p-4">
+      <div className="bg-[#e6e2dd] rounded-lg hover:shadow-lg transition-all p-4">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
             <span className="text-yellow-500">⚠</span>
@@ -53,7 +53,7 @@ const VehicleStats = ({ vehicles }) => {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm p-4">
+      <div className="bg-[#e6e2dd] rounded-lg hover:shadow-lg transition-all p-4">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
             <span className="text-blue-500">👤</span>
@@ -230,7 +230,7 @@ export default function Index({ auth, vehicles, queryParams = null, success }) {
                         </Link>
                       </td>
                       <td className="px-4 py-3">
-                        <span className={`px-3 py-1 text-white rounded-full text-sm font-medium ${VEHICLE_STATUS_CLASS_MAP[vehicle.status]}`}>
+                        <span className={`px-3 py-1 text-white rounded text-sm font-medium ${VEHICLE_STATUS_CLASS_MAP[vehicle.status]}`}>
                           {VEHICLE_STATUS_TEXT_MAP[vehicle.status]}
                         </span>
                       </td>

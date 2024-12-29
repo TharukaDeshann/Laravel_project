@@ -17,7 +17,7 @@ const UserStats = ({ users }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-      <div className="bg-white rounded-lg shadow-sm p-4">
+      <div className="bg-[#e6e2dd] rounded-lg hover:shadow-lg transition-all p-4">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-[#d48166]/10 rounded-full flex items-center justify-center mr-3">
             <span className="text-[#d48166]">👥</span>
@@ -29,7 +29,7 @@ const UserStats = ({ users }) => {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm p-4">
+      <div className="bg-[#e6e2dd] rounded-lg hover:shadow-lg transition-all p-4">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
             <span className="text-green-500">👨‍💼</span>
@@ -41,7 +41,7 @@ const UserStats = ({ users }) => {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm p-4">
+      <div className="bg-[#e6e2dd] rounded-lg p-4 hover:shadow-lg transition-all">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
             <span className="text-blue-500">🚗</span>
@@ -53,7 +53,7 @@ const UserStats = ({ users }) => {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm p-4">
+      <div className="bg-[#e6e2dd] rounded-lg p-4 hover:shadow-lg transition-all">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
             <span className="text-yellow-500">⚠</span>
@@ -78,6 +78,8 @@ export default function Index({ auth, users, queryParams = null, success }) {
     }
     router.delete(route("user.destroy", user.id));
   };
+  
+  const checkUser = (user) => user.id === auth.user.id;
 
   queryParams = queryParams || {};
   const searchFieldChanged = (type, value) => {
@@ -147,7 +149,7 @@ export default function Index({ auth, users, queryParams = null, success }) {
                   />
                 </div>
 
-                <div>
+                {hasPermissions("manage_drivers") && (<div>
                   <label className="block text-sm font-medium text-[#373a36] mb-2">
                     <FaFilter className="inline-block mr-2 text-[#d48166]" />
                     Filter by Role
@@ -161,7 +163,7 @@ export default function Index({ auth, users, queryParams = null, success }) {
                     <option value="admin">Admin</option>
                     <option value="driver">Driver</option>
                   </SelectInput>
-                </div>
+                </div>)}
 
                 
               </div>
@@ -177,7 +179,9 @@ export default function Index({ auth, users, queryParams = null, success }) {
                     <th className="px-4 py-3 font-semibold text-left">Name</th>
                     <th className="px-4 py-3 font-semibold text-left">Email</th>
                     <th className="px-4 py-3 font-semibold text-left">Created Date</th>
-                    <th className="px-4 py-3 font-semibold text-left">Assigned Roles</th>
+                    {hasPermissions("manage_drivers") && 
+                    (<th className="px-4 py-3 font-semibold text-left">Assigned Roles</th>
+                    )}
                     {hasPermissions("manage_drivers") && (
                       <th className="px-4 py-3 text-right font-semibold">Actions</th>
                     )}
@@ -213,7 +217,7 @@ export default function Index({ auth, users, queryParams = null, success }) {
                       <td className="px-4 py-3">
                         {format(new Date(user.created_at), "dd MMM yyyy")}
                       </td>
-                      <td className="px-4 py-3">
+                      {hasPermissions("manage_drivers") && (<td className="px-4 py-3">
                         {user.roles.length > 0 ? (
                           <div className="flex flex-wrap gap-1">
                             {user.roles.map((role) => (
@@ -231,7 +235,7 @@ export default function Index({ auth, users, queryParams = null, success }) {
                             No roles
                           </span>
                         )}
-                      </td>
+                      </td>)}
                      
                       {hasPermissions("manage_drivers") && (
                         <td className="px-4 py-3 text-right">
