@@ -31,7 +31,10 @@ export default function AuthenticatedLayout({ user = {}, header, children }) {
             {/* Logo */}
             <div className="flex items-center">
               <Link href="/">
-                <ApplicationLogo className="block h-9 w-auto fill-current text-primary" />
+              <div className="flex items-center space-x-2">
+    <ApplicationLogo className="h-9 w-auto text-primary" />
+    <span className="text-lg font-semibold text-primary">FMS</span>
+</div>
               </Link>
             </div>
 
@@ -58,6 +61,13 @@ export default function AuthenticatedLayout({ user = {}, header, children }) {
               >
                 <FaUser className="mr-1 text-primary" /> Drivers
               </NavLink>
+              <NavLink
+              href={route("assignment.index")}
+              active={route().current("assignment.index")}
+              className="flex items-center text-secondary hover:text-primary"
+            >
+              <FaUser className="mr-2 text-primary" /> Assignments
+            </NavLink>
               {hasRoles('admin') && (
                 <NavLink
                   href={route("admin.dashboard")}
@@ -156,6 +166,12 @@ export default function AuthenticatedLayout({ user = {}, header, children }) {
               active={route().current("user.index")}
             >
               <FaUser className="mr-2 text-primary" /> Drivers
+            </NavLink>
+            <NavLink
+              href={route("assignment.index")}
+              active={route().current("assignment.index")}
+            >
+              <FaUser className="mr-2 text-primary" /> Assignments
             </NavLink>
             {hasRoles("admin") && (
               <NavLink

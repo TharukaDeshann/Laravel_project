@@ -47,7 +47,7 @@ export default function Edit({ auth, user, roles, roleLabels }) {
 
       <div className="py-6">
         <div className="mx-auto max-w-3xl">
-          <div className="bg-white rounded-lg shadow-sm border border-[#d48166]/10">
+          <div className="bg-[#e6e2dd] rounded-lg shadow-sm border border-[#d48166]/10">
             <form onSubmit={onSubmit} className="p-6">
               <div>
                 <InputLabel 
@@ -78,7 +78,7 @@ export default function Edit({ auth, user, roles, roleLabels }) {
               <div className="mt-6 flex justify-end gap-3">
                 <Link
                   href={route("user.index")}
-                  className="px-4 py-2 bg-[#e6e2dd] text-[#373a36] rounded-lg hover:bg-[#e6e2dd]/80 transition-all duration-200 flex items-center gap-2"
+                  className="px-4 py-2 bg-white text-[#373a36] rounded-lg hover:bg-gray-100 transition-all duration-200 flex items-center gap-2"
                 >
                   <FaTimes className="text-sm" />
                   Cancel

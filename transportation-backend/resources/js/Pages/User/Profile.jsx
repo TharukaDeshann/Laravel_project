@@ -1,20 +1,11 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router, usePage } from "@inertiajs/react";
 import DeleteUserForm from "../Profile/Partials/DeleteUserForm";
-import { FaArrowLeft, FaEdit, FaSignOutAlt, FaUser } from "react-icons/fa";
+import { FaArrowLeft, FaEdit, FaTrash, FaEnvelope, FaIdCard, FaCalendar, FaUserTag, FaSignOutAlt } from "react-icons/fa";
 
-export default function Show({ auth, user }) {
-  const flag = () => {
-    return user.id === auth.user.id;
-  };
-
-  const userPermissions = auth?.user?.permissions || [];
-  const hasPermissions = (permission) => {
-    return userPermissions.includes(permission);
-  };
-
-  const deleteUser = (user) => {
-    if (!window.confirm("Are you sure you want to delete this user?")) {
+export default function Profile({ auth, user }) {
+  const deleteUser = () => {
+    if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
       return;
     }
     router.delete(route("profile.destroy", user.id));
@@ -25,111 +16,109 @@ export default function Show({ auth, user }) {
       user={auth.user}
       header={
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-[#373a36]">
-            User Details - {user?.name || "Unknown"}
+          <h2 className="text-2xl font-bold text-[#373a36] flex items-center gap-2">
+            Profile Details
+            <span className="text-[#d48166]">-</span>
+            <span className="text-[#d48166]">{user?.name || "Unknown"}</span>
           </h2>
-          <Link
-            href={route("user.index")}
-            className="text-[#d48166] hover:text-[#d48166]/80 transition-all duration-200 flex items-center gap-2"
-          >
-            <FaArrowLeft className="text-sm" />
-            Back to Users
-          </Link>
+          <div className="flex gap-3">
+            <Link
+              href={route("profile.edit", user.id)}
+              className="bg-[#d48166]/10 text-[#d48166] py-2 px-4 rounded-lg shadow-sm hover:bg-[#d48166]/20 transition-all duration-200 flex items-center gap-2"
+            >
+              <FaEdit className="text-sm" />
+              Edit Profile
+            </Link>
+            <DeleteUserForm />
+            <button
+              onClick={() => router.post(route("logout"))}
+              className="bg-[#373a36] text-white py-2 px-4 rounded-lg shadow-sm hover:bg-[#373a36]/90 transition-all duration-200 flex items-center gap-2"
+            >
+              <FaSignOutAlt className="text-sm" />
+              Log Out
+            </button>
+          </div>
         </div>
       }
     >
-      <Head title={`User "${user.name}"`} />
+      <Head title="My Profile" />
 
       <div className="py-6">
-        <div className="mx-auto max-w-5xl">
-          {/* Profile Card */}
-          <div className="bg-white rounded-lg shadow-sm border border-[#d48166]/10 overflow-hidden mb-6">
-            <div className="flex items-center p-6">
-              <div className="w-24 h-24 rounded-lg overflow-hidden bg-[#e6e2dd] shadow-sm">
-                {user.image_path ? (
-                  <img
-                    src={user.image_path}
-                    alt={`${user.name}'s profile`}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-[#e6e2dd] text-[#373a36]">
-                    <FaUser size={40} />
-                  </div>
-                )}
+        <div className="max-w-7xl mx-auto space-y-6">
+          {/* Profile Overview Card */}
+          <div className="bg-white rounded-lg shadow-sm border border-[#d48166]/10 overflow-hidden">
+            <div className="p-6 flex items-center space-x-6 bg-[#e6e2dd]">
+              <div className="w-24 h-24 rounded-lg overflow-hidden bg-[#d48166]/10 shadow-sm">
+                <img
+                  src={user.image_path || "/images/placeholder.png"}
+                  alt={`${user.name}'s profile`}
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <div className="ml-6">
-                <h3 className="text-2xl font-bold text-[#373a36]">
-                  {user.name}
-                </h3>
-                <p className="text-[#373a36]/70">
-                  {user.email}
-                </p>
-                <span className="inline-block mt-2 px-3 py-1 bg-[#d48166]/10 text-[#d48166] rounded-full text-sm font-medium">
-                  {user.role}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* User Details */}
-          <div className="bg-white rounded-lg shadow-sm border border-[#d48166]/10 p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h4 className="text-lg font-semibold text-[#373a36] mb-4">
-                  Personal Details
-                </h4>
-                <div className="space-y-3">
-                  <div className="flex items-center">
-                    <span className="font-medium text-[#373a36] w-32">User ID:</span>
-                    <span className="text-[#373a36]/70">{user.id}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="font-medium text-[#373a36] w-32">Created Date:</span>
-                    <span className="text-[#373a36]/70">
-                      {new Date(user.created_at).toLocaleString()}
-                    </span>
-                  </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <h3 className="text-2xl font-bold text-[#373a36]">
+                    {user.name}
+                  </h3>
+                  <span className="px-3 py-1 bg-[#d48166]/10 text-[#d48166] rounded-full text-sm font-medium">
+                    {user.role}
+                  </span>
                 </div>
-              </div>
-              <div>
-                <h4 className="text-lg font-semibold text-[#373a36] mb-4">
-                  Role and Permissions
-                </h4>
-                <div className="space-y-3">
-                  <div className="flex items-center">
-                    <span className="font-medium text-[#373a36] w-32">Role:</span>
-                    <span className="text-[#373a36]/70">{user.role}</span>
-                  </div>
-                  {flag() && (
-                    <div className="mt-6 flex gap-4">
-                      <Link
-                        href={route("profile.edit", user.id)}
-                        className="bg-[#d48166] py-2 px-4 text-white rounded-lg shadow-sm hover:bg-[#d48166]/90 transition-all duration-200 flex items-center gap-2"
-                      >
-                        <FaEdit className="text-sm" />
-                        Edit Profile
-                      </Link>
-                      <DeleteUserForm className="max-w-xl" />
-                    </div>
-                  )}
+                <div className="flex items-center gap-4 text-gray-600">
+                  <span className="flex items-center gap-2">
+                    <FaEnvelope className="text-[#d48166]" />
+                    {user.email}
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <FaIdCard className="text-[#d48166]" />
+                    ID: {user.id}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Actions */}
-          {flag() && (
-            <div className="mt-6 flex justify-end">
-              <button
-                onClick={() => router.post(route("logout"))}
-                className="bg-[#373a36] py-2 px-4 text-white rounded-lg shadow-sm hover:bg-[#373a36]/90 transition-all duration-200 flex items-center gap-2"
-              >
-                <FaSignOutAlt className="text-sm" />
-                Log Out
-              </button>
+          {/* Detailed Information */}
+          <div className="grid grid-cols-1 gap-6">
+            {/* User Details Card */}
+            <div className="bg-white rounded-lg shadow-sm border border-[#d48166]/10 p-6">
+              <h4 className="text-lg font-bold text-[#373a36] mb-4 flex items-center gap-2">
+                <FaUserTag className="text-[#d48166]" />
+                Profile Information
+              </h4>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Account Created</label>
+                  <p className="flex items-center gap-2 mt-1">
+                    <FaCalendar className="text-[#d48166]" />
+                    {new Date(user.created_at).toLocaleString()}
+                  </p>
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium text-gray-500">Assigned Roles</label>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {user.roles && user.roles.length > 0 ? (
+                      user.roles.map((role) => (
+                        <span
+                          key={role}
+                          className="px-3 py-1 bg-[#e6e2dd] text-[#373a36] rounded-full text-sm"
+                        >
+                          {role}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-gray-400 flex items-center gap-2">
+                        <span>⚠️</span>
+                        No roles assigned
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </AuthenticatedLayout>
