@@ -168,8 +168,10 @@ const AssignedVehiclesGrid = ({ vehicles }) => {
         </div>
       )}
     </div>
+    
   );
 };
+
 
 // Enhanced UserStats Component
 const UserStats = ({ user }) => {

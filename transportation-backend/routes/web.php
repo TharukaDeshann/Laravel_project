@@ -18,27 +18,6 @@ use App\Http\Middleware\AdminMiddleware;
 
 Route::redirect('/', '/register');
 
-// Route::get('/userdetails', [DashboardController::class, 'userdetails'])
-//         ->name('userdetails');
-
-// Route::get('/userdetails/{id}', [DashboardController::class, 'auser'])
-//         ->name('auser');
-
-// Route::delete('/userdetails/{id}', [DashboardController::class, 'deleteuser'])  
-//         ->name('deleteuser');
-
-// Route::put('/userdetails/{id}', [DashboardController::class, 'updateuser'])  
-//         ->name('updateuser');
-
-// Route::post('/userdetails', [DashboardController::class, 'createuser'])  
-//         ->name('createuser');
-
-// Route::get('/vehicledetails', [DashboardController::class, 'vehicledetails'])
-//         ->name('vehicledetails');
-// Route::get('/vehicledetails/{id}', [DashboardController::class, 'avehicle'])
-//         ->name('avehicle');
-
-
 Route::middleware(['auth', 'verified'])->group(function () {
         
                 Route::get('/dashboard', [DashboardController::class, 'index'])
