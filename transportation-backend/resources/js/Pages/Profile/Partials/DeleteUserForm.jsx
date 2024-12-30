@@ -32,23 +32,18 @@ export default function DeleteUserForm({ className = '' }) {
 
     return (
         <section className={className}>
-            <header className="mb-6">
-                <h2 className="text-xl font-semibold text-red-600 flex items-center gap-2">
-                    <FaExclamationTriangle />
+            <div className="flex items-start">
+                <div className="flex-grow">
+                    
+                </div>
+                <button
+                    onClick={() => setConfirmingUserDeletion(true)}
+                    className="ml-4 bg-[#d48166] py-2 px-4 text-white rounded-lg shadow-sm hover:bg-red-500 transition-all duration-200 flex items-center gap-2"
+                >
+                    <FaTrash className="text-sm" />
                     Delete Account
-                </h2>
-                <p className="mt-1 text-sm text-gray-600">
-                    Once your account is deleted, all of its resources and data will be permanently deleted.
-                </p>
-            </header>
-
-            <button
-                onClick={() => setConfirmingUserDeletion(true)}
-                className="bg-red-600 py-2 px-4 text-white rounded-lg shadow-sm hover:bg-red-700 transition-all duration-200 flex items-center gap-2"
-            >
-                <FaTrash className="text-sm" />
-                Delete Account
-            </button>
+                </button>
+            </div>
 
             <Modal show={confirmingUserDeletion} onClose={closeModal}>
                 <form onSubmit={deleteUser} className="p-6">
@@ -90,7 +85,7 @@ export default function DeleteUserForm({ className = '' }) {
                         <button
                             type="submit"
                             disabled={processing}
-                            className="bg-red-600 py-2 px-4 text-white rounded-lg shadow-sm hover:bg-red-700 transition-all duration-200 flex items-center gap-2"
+                            className="bg-red-600 py-2  px-4 text-white rounded-lg shadow-sm hover:bg-red-700 transition-all duration-200 flex items-center gap-2"
                         >
                             <FaTrash className="text-sm" />
                             Delete Account

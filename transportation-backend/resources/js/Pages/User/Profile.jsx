@@ -21,23 +21,7 @@ export default function Profile({ auth, user }) {
             <span className="text-[#d48166]">-</span>
             <span className="text-[#d48166]">{user?.name || "Unknown"}</span>
           </h2>
-          <div className="flex gap-3">
-            <Link
-              href={route("profile.edit", user.id)}
-              className="bg-[#d48166]/10 text-[#d48166] py-2 px-4 rounded-lg shadow-sm hover:bg-[#d48166]/20 transition-all duration-200 flex items-center gap-2"
-            >
-              <FaEdit className="text-sm" />
-              Edit Profile
-            </Link>
-            <DeleteUserForm />
-            <button
-              onClick={() => router.post(route("logout"))}
-              className="bg-[#373a36] text-white py-2 px-4 rounded-lg shadow-sm hover:bg-[#373a36]/90 transition-all duration-200 flex items-center gap-2"
-            >
-              <FaSignOutAlt className="text-sm" />
-              Log Out
-            </button>
-          </div>
+          
         </div>
       }
     >
@@ -116,8 +100,31 @@ export default function Profile({ auth, user }) {
                     )}
                   </div>
                 </div>
+                
               </div>
+              
             </div>
+            <div className="flex gap-3">
+            <Link
+              href={route("profile.edit", user.id)}
+              className="bg-[#e6e2dd] text-[#d48166] py-2 px-4  rounded-lg shadow-sm hover:bg-[#d48166]/20 transition-all duration-200 flex items-center gap-2"
+            >
+              <FaEdit className="text-sm" />
+              Edit Profile
+            </Link>
+            <DeleteUserForm />
+            
+          </div>
+          <div className="flex justify-between items-center">
+            <div></div>
+          <button
+              onClick={() => router.post(route("logout"))}
+              className="bg-[#373a36] text-white py-2 px-4 rounded-lg shadow-sm hover:bg-[#373a36]/90 transition-all duration-200 flex items-center gap-2"
+            >
+              <FaSignOutAlt className="text-sm" />
+              Log Out
+            </button>
+          </div>
           </div>
         </div>
       </div>
