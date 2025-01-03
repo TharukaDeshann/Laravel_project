@@ -42,7 +42,7 @@ export default function Index({ auth,assignments, queryParams = null, success })
       header={
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold text-[#373a36]">
-            Assignment Management
+            Trip Management
           </h2>
           {hasPermissions('manage_features') && (
             <Link
@@ -50,7 +50,7 @@ export default function Index({ auth,assignments, queryParams = null, success })
               className="bg-[#d48166] py-2 px-4 text-white rounded-lg shadow-sm hover:bg-[#d48166]/90 transition-all duration-200 flex items-center gap-2"
             >
               <FaPlus className="text-sm" />
-              Add New Assignment
+              Add New Trip
             </Link>
           )}
         </div>
